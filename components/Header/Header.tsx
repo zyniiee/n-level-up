@@ -21,5 +21,4 @@ const Header = () => {
     </header>
   );
 };
-/* <Link href="/library" className={cn("text-base cursor-pointer", pathname=== "/library"? "text-light-200": "text-light-100")} </Link>*/
 export default Header;

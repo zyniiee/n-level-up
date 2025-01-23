@@ -28,8 +28,8 @@ const FooterSection = ({ footer }: { footer: Footer }) => {
     if (headingRef.current) {
       const offsetTop = headingRef.current.offsetTop;
       // Start the animation 80% before it appears
-      const startPoint = offsetTop - window.innerHeight * 0.3;
-      const endPoint = startPoint + 1000; // animate over 500px of scrolling
+      const startPoint = offsetTop - window.innerHeight * 0.9;
+      const endPoint = startPoint + 1000;
 
       setStart(startPoint);
       setEnd(endPoint);
