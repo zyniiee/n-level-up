@@ -1,0 +1,25 @@
+.footer_about_heading {
+  font-size: 4rem;
+  line-height: 120%;
+}
+.footer_heading {
+  font-size: 24vw;
+  line-height: 125%;
+  text-wrap: nowrap;
+  display: inline-block;
+  text-align: center;
+  position: relative;
+}
+.footer_sns {
+  border: 0.5px solid var(--secondary);
+  border-radius: 50%;
+}
+.copyright {
+  font-size: 12px;
+  text-align: center;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  line-height: 150%;
+  background: var(--foreground);
+  color: var(--background);
+}

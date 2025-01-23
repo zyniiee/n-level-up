@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-montserrat);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+@layer base {
+  :root {
+    --background: #0c0c0c;
+    --foreground: #fdfdfd;
+    --secondary: #aeaeae;
+    --font-montserrat: "Montserrat", sans-serif;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+a {
+  cursor: pointer;
+}
+.page_container {
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.section_container {
+  padding: 8rem 10vw 0rem 10vw;
+}
+.section_container_sml {
+  padding: 2rem 10vw;
+}
+.section_container_fullw {
+  padding: 8rem 0;
+}
+
+h3 {
+  /*Knowledge We Give, Value You Get*/
+  font-weight: 500;
+  line-height: 130%;
+  font-size: 2.857rem; /*40px*/
+}
