@@ -9,7 +9,7 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: "Level Up",
-  description: "By Zynieeeee",
+  description: "By Zynieeeeee",
 };
 
 const RootLayout: React.FC<{
