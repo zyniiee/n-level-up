@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import styles from "./secondaryButton.module.css";
+import styles from "./SecondaryButton.module.css";
 
 interface ButtonProps {
   text?: string;

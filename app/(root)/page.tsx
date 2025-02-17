@@ -8,7 +8,7 @@ import TextScrollLarge from "../home/components/TextScrollLarge";
 import TeamSection from "../home/components/TeamSection";
 import ReviewSection from "../home/components/ReviewSection";
 import ProjectSection from "../home/components/ProjectSection";
-import { home, sampleBlog, sampleGocNhin } from "@/constants";
+import { home } from "@/constants";
 import CoursesList from "../home/components/CoursesList";
 import BlogSection from "../home/components/BlogSection";
 import GocNhinSection from "../home/components/GocNhinSection";

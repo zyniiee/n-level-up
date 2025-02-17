@@ -1,4 +1,4 @@
-import { About, Course, Team, Review, Blog, GocNhin, Footer } from "../types";
+import { About, Course, Team, Review, Footer } from "../types";
 export interface Home {
   about: About;
   team: Team[];
@@ -183,103 +183,5 @@ export const sampleCourses: Course[] = [
     id: 5,
     name: "UI - UX Foundation",
     mainImage: "/images/ui.jpg",
-  },
-];
-export const sampleBlog: Blog[] = [
-  {
-    title: "Knowledge We Give, Value You Get",
-    cta: "Xem chi tiết",
-    href: "/blog",
-    post: [
-      {
-        id: 1,
-        name: "5 steps to make your brand standout",
-        mainImage: "/images/posts/b-1.jpg",
-      },
-      {
-        id: 2,
-        name: "Honing your visual sense in design",
-        mainImage: "/images/posts/b-2.jpg",
-      },
-      {
-        id: 3,
-        name: "5 mistakes of designers",
-        mainImage: "/images/posts/b-3.jpg",
-      },
-      {
-        id: 4,
-        name: "5 steps to make your brand standout",
-        mainImage: "/images/posts/b-5.jpg",
-      },
-      {
-        id: 5,
-        name: "5 steps to make your brand standout",
-        mainImage: "/images/posts/b-5.jpg",
-      },
-      {
-        id: 6,
-        name: "5 steps to make your brand standout",
-        mainImage: "/images/posts/b-6.jpg",
-      },
-      {
-        id: 7,
-        name: "5 steps to make your brand standout",
-        mainImage: "/images/posts/b-7.jpg",
-      },
-      {
-        id: 8,
-        name: "5 steps to make your brand standout",
-        mainImage: "/images/posts/b-8.jpg",
-      },
-    ],
-  },
-];
-export const sampleGocNhin: GocNhin[] = [
-  {
-    title: "Knowledge We Give, Value You Get",
-    cta: "Xem chi tiết",
-    href: "/goc-nhin",
-    post: [
-      {
-        id: 1,
-        name: "5 steps to make your brand standout",
-        mainImage: "/images/posts/g-1.jpg",
-      },
-      {
-        id: 2,
-        name: "Honing your visual sense in design",
-        mainImage: "/images/posts/g-2.jpg",
-      },
-      {
-        id: 3,
-        name: "5 mistakes of designers",
-        mainImage: "/images/posts/g-3.jpg",
-      },
-      {
-        id: 4,
-        name: "5 steps to make your brand standout",
-        mainImage: "/images/posts/g-4.jpg",
-      },
-      {
-        id: 5,
-        name: "5 steps to make your brand standout",
-        mainImage: "/images/posts/g-5.jpg",
-      },
-      {
-        id: 6,
-        name: "5 steps to make your brand standout",
-        mainImage: "/images/posts/g-6.jpg",
-      },
-      {
-        id: 7,
-        name: "5 steps to make your brand standout",
-        mainImage: "/images/posts/g-7.jpg",
-      },
-      {
-        id: 8,
-        name: "5 steps to make your brand standout",
-        mainImage: "/images/posts/g-8.jpg",
-      },
-    ],
   },
 ];
