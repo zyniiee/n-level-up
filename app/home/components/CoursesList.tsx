@@ -1,55 +1,71 @@
-import React, { useState } from "react";
-import Image from "next/image";
+"use client";
+import { NotionCourses } from "@/types";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import styles from "../styles/home.module.css";
-import { generateSlug } from "@/lib/utils";
-import { Course } from "@/types";
-interface CoursesListProps {
-  courses: Course[];
-}
+import Image from "next/image";
 
-const CoursesList: React.FC<CoursesListProps> = ({ courses }) => {
-  // State to track the currently hovered course
-  const [hoveredImage, setHoveredImage] = useState<string>(
-    courses[0]?.mainImage || ""
-  );
+const CoursesList = () => {
+  const [allCourses, setAllCourses] = useState<NotionCourses[]>([]);
+  const [hoveredImage, setHoveredImage] = useState<string>("");
+  const href = "/courses";
+
+  useEffect(() => {
+    fetch("/api/courses")
+      .then((res) => res.json())
+      .then((data) => {
+        setAllCourses(data.allCourses);
+        if (data.allCourses.length > 0) {
+          setHoveredImage(
+            data.allCourses[0].properties["main-images"]?.url || ""
+          );
+        }
+      })
+      .catch((err) => console.error("Fetch error:", err));
+  }, []);
 
   return (
-    <section className="grid grid-cols-2 ">
-      {/* Fixed image section */}
-      <div className=" h-auto flex  justify-center pr-20 items-start pt-8 ">
-        <Image
-          src={hoveredImage}
-          alt="Selected course"
-          width={500}
-          height={300}
-          className="object-cover"
-        />
-      </div>
+    <section className="section_container">
+      <div className="xl:grid grid-cols-2 flex flex-col">
+        {/* Fixed image section */}
+        <div className="h-auto flex justify-center xl:pr-20 items-start pt-8">
+          {hoveredImage && (
+            <img
+              src={hoveredImage}
+              alt="Selected course"
+              className="object-cover transition-all duration-300 ease-in-out"
+            />
+          )}
+        </div>
 
-      {/* Course list section */}
-      <div className="">
-        <p className="font-semibold text-secondary border-b-[0.5px] border-secondary pb-2 ">
-          Khoá học LEVEL UP tư duy
-        </p>{" "}
-        {courses.map((course) => {
-          return (
-            <div
-              key={course.id}
-              className="flex items-center pb-6 pt-6 border-b-[0.5px] border-secondary"
-              onMouseEnter={() => setHoveredImage(course.mainImage)} // Update image on hover
-            >
-              <div className="">
-                <Link
-                  href={`/courses/${generateSlug(course.name)}`}
-                  className={`${styles.page_course_heading} `}
-                >
-                  {course.name}
-                </Link>
+        {/* Course list section */}
+        <div className="pt-16 xl:pt-0">
+          <p className="font-semibold text-secondary border-b-[0.5px] border-secondary pb-2">
+            Khoá học LEVEL UP tư duy
+          </p>
+          {allCourses.map((course) => {
+            const mainImage = course.properties["main-image"]?.url || "";
+            const slug =
+              course.properties.Slug?.rich_text?.[0]?.plain_text || "";
+
+            return (
+              <div
+                key={course.id}
+                className="flex items-center py-6 border-b-[0.5px] border-secondary cursor-pointer"
+                onMouseEnter={() => setHoveredImage(mainImage)} // Update image on hover
+              >
+                <div>
+                  <Link
+                    href={`${href}/${slug}`}
+                    className="page_course_heading font-bold xl:text-[1.5vw] text-[1.25rem] flex"
+                  >
+                    {course.properties.Name?.title?.[0]?.text?.content ||
+                      "Untitled Course"}
+                  </Link>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </section>
   );

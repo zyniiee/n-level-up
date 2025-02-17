@@ -4,7 +4,7 @@ import React from "react";
 const TextScroll = () => {
   // Reusable text snippet
   const textSnippet = (
-    <p className="mx-4 text-xl text-[#AEAEAE] inline-block">
+    <p className="mx-4 text-xl inline-block">
       <span className="uppercase font-bold">Level up </span>- Art & Design
       Courses
     </p>
@@ -16,15 +16,15 @@ const TextScroll = () => {
       <div className="w-full overflow-hidden whitespace-nowrap">
         <div className="relative w-[200%] animate-marquee-reverse">
           {/* 1st copy */}
-          {Array(4)
+          {Array(8)
             .fill(null)
             .map((_, i) => (
               <React.Fragment key={`firstTop-${i}`}>
                 {textSnippet}
               </React.Fragment>
             ))}
-          {/* 2nd copy for seamless looping */}
-          {Array(4)
+          {/* 2nd copy */}
+          {Array(8)
             .fill(null)
             .map((_, i) => (
               <React.Fragment key={`secondTop-${i}`}>
@@ -38,7 +38,7 @@ const TextScroll = () => {
       <div className="w-full overflow-hidden whitespace-nowrap">
         <div className="relative w-[200%] animate-marquee">
           {/* 1st copy */}
-          {Array(4)
+          {Array(8)
             .fill(null)
             .map((_, i) => (
               <React.Fragment key={`firstBottom-${i}`}>
@@ -46,7 +46,7 @@ const TextScroll = () => {
               </React.Fragment>
             ))}
           {/* 2nd copy */}
-          {Array(4)
+          {Array(8)
             .fill(null)
             .map((_, i) => (
               <React.Fragment key={`secondBottom-${i}`}>

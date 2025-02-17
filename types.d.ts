@@ -54,24 +54,37 @@ export interface Review {
   quote: string;
 }
 
-// Blog and GocNhin Interfaces
-export interface Blog {
-  title: string;
-  cta: string;
-  href: string;
-  post: Post[];
+interface NotionBlog {
+  id: string;
+  properties: {
+    Name: { title: { text: { content: string } }[] };
+    "main-image"?: { url?: string };
+    Slug?: { rich_text: { plain_text: string }[] };
+  };
 }
 
-export interface GocNhin {
-  title: string;
-  cta: string;
-  href: string;
-  post: Post[];
+interface NotionGocNhin {
+  id: string;
+  properties: {
+    Name: { title: { text: { content: string } }[] };
+    "main-image"?: { url?: string };
+    Slug?: { rich_text: { plain_text: string }[] };
+  };
 }
 
-// Post Interface
-interface Post {
-  id: number;
-  name: string;
-  mainImage: string;
+interface NotionCourses {
+  id: string;
+  properties: {
+    Name: { title: { text: { content: string } }[] };
+    "main-image"?: { url?: string };
+    Slug?: { rich_text: { plain_text: string }[] };
+  };
+}
+interface NotionGalleries {
+  id: string;
+  properties: {
+    Name: { title: { text: { content: string } }[] };
+    "main-image"?: { url?: string };
+    Slug?: { rich_text: { plain_text: string }[] };
+  };
 }

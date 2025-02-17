@@ -8,10 +8,10 @@ import TextScrollLarge from "../home/components/TextScrollLarge";
 import TeamSection from "../home/components/TeamSection";
 import ReviewSection from "../home/components/ReviewSection";
 import ProjectSection from "../home/components/ProjectSection";
-import BlogSection from "../home/components/BlogSection";
-import CoursesListCover from "../home/components/CoursesListCover";
 import { home, sampleBlog, sampleGocNhin } from "@/constants";
 import CoursesList from "../home/components/CoursesList";
+import BlogSection from "../home/components/BlogSection";
+import GocNhinSection from "../home/components/GocNhinSection";
 const Home = () => {
   return (
     <>
@@ -20,12 +20,12 @@ const Home = () => {
       <AboutSection />
       <VideoSection />
       <TextScrollLarge />
-      <CoursesListCover />
+      <CoursesList />
       <TeamSection />
       <ProjectSection />
       <ReviewSection reviews={home[0].reviews} />
-      <BlogSection posts={sampleBlog} />
-      <BlogSection posts={sampleGocNhin} />
+      <BlogSection />
+      <GocNhinSection />
     </>
   );
 };

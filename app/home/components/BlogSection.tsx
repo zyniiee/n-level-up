@@ -1,47 +1,66 @@
-import React from "react";
-import { Blog } from "@/types";
+"use client";
+import { useEffect, useState } from "react";
+import { NotionBlog } from "@/types";
 import Button from "@/components/ui/Button/button";
-import styles from "../styles/home.module.css";
-import { generateSlug } from "@/lib/utils";
 
-interface BlogListProps {
-  posts: Blog[];
-}
+const BlogSection = () => {
+  const [featuredPosts, setFeaturedPosts] = useState<NotionBlog[]>([]);
+  const title = "Knowledge We Give, Value You Get";
+  const cta = "Xem chi tiết";
+  const href = "/blog";
 
-const BlogSection: React.FC<BlogListProps> = ({ posts }) => {
+  useEffect(() => {
+    fetch("/api/blog")
+      .then((res) => res.json())
+      .then((data) => {
+        setFeaturedPosts(data.featured);
+      })
+      .catch((err) => console.error("Fetch error:", err));
+  }, []);
+
   return (
     <section className="section_container">
-      {/* Iterate over blogs */}
-      {posts.map((blog, index) => (
-        <div key={index} className="blog-category">
+      {featuredPosts.length > 0 ? (
+        <div className="blog-category">
           <div className="flex justify-between items-end pb-8">
-            <h3 className="w-1/2">{blog.title}</h3>
-            <Button text={blog.cta} href={blog.href}></Button>
+            <h3 className="w-1/2 font-medium xl:text-[3vw] text-[4vw] leading-[125%]">
+              {" "}
+              {title}
+            </h3>
+            <Button text={cta} href={href}></Button>
           </div>
 
-          {/* Iterate over posts within each blog */}
-          <div className={`${styles.blog_posts} grid grid-cols-4 gap-4`}>
-            {blog.post.slice(0, 8).map((post) => (
-              <div key={post.id} className={`${styles.blog_post} `}>
-                <img
-                  src={post.mainImage}
-                  alt={post.name}
-                  className={`${styles.blog_post_image} `}
-                />
-                <div className={`${styles.blog_post_detail} `}>
-                  <h5 className={`${styles.blog_post_heading} pb-4`}>
-                    {post.name}
-                  </h5>
-                  <Button
-                    text={blog.cta}
-                    href={`${blog.href}/${generateSlug(post.name)}`}
-                  ></Button>
+          <div className="blog_posts grid xl:grid-cols-4 grid-cols-2 gap-4">
+            {featuredPosts.slice(0, 8).map((post) => {
+              const mainImage = post.properties["main-image"]?.url || "";
+              const slug =
+                post.properties.Slug?.rich_text?.[0]?.plain_text || "";
+
+              return (
+                <div key={post.id} className="blog_post">
+                  <img
+                    src={mainImage}
+                    alt={
+                      post.properties.Name?.title?.[0]?.text?.content ||
+                      "Blog Post"
+                    }
+                    className="blog_post_image"
+                  />
+                  <div className="blog_post_detail">
+                    <h5 className="blog_post_heading pb-4">
+                      {post.properties.Name?.title?.[0]?.text?.content ||
+                        "Untitled"}
+                    </h5>
+                    <Button text={cta} href={`${href}/${slug}`}></Button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
-      ))}
+      ) : (
+        <p>Loading Featured Blog Posts...</p>
+      )}
     </section>
   );
 };
