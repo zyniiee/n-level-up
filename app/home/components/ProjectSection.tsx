@@ -18,10 +18,10 @@ const Project = () => {
   }, []);
 
   return (
-    <section className="section_container xl:grid grid-cols-3 gap-8">
+    <section className="section_container xl:grid grid-cols-3 gap-8 xl:mt-0 mt-20">
       {/* Left Column - Title & Button */}
-      <div className="flex xl:flex-col justify-between col-span-1 xl:pb-0 pb-8">
-        <p className="xl:mx-4 text-md inline-block">
+      <div className="flex xl:flex-col justify-between items-center md:items-start col-span-1 xl:pb-0 pb-8">
+        <p className=" text-md inline-block">
           <span className="uppercase font-bold">Level up </span>- Art & Design
           Courses
         </p>
@@ -29,7 +29,7 @@ const Project = () => {
       </div>
 
       {/* Right Column - Project Images */}
-      <div className="col-span-2 gap-8 flex flex-col">
+      <div className="col-span-2 gap-8 flex flex-col ">
         {featuredProject.slice(0, 2).map((project) => {
           const mainImage = project.properties["main-image"]?.url || "";
           return (

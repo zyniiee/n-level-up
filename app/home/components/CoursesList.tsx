@@ -27,7 +27,7 @@ const CoursesList = () => {
     <section className="section_container">
       <div className="xl:grid grid-cols-2 flex flex-col">
         {/* Fixed image section */}
-        <div className="h-auto flex justify-center xl:pr-20 items-start pt-8">
+        <div className="h-auto flex justify-center lg:pr-20 items-start pt-8">
           {hoveredImage && (
             <img
               src={hoveredImage}

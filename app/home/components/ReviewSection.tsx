@@ -7,12 +7,12 @@ interface ReviewSectionProps {
 }
 const ReviewSection: React.FC<ReviewSectionProps> = ({ reviews }) => {
   return (
-    <section className="px-[10vw] pt-32 w-100 overflow-x-auto">
+    <section className="md:px-[10vw] px-[2rem] xl:pt-[15rem] pt-20 w-100 overflow-x-auto">
       <div className="flex flex-nowrap gap-2">
         {reviews.map((review) => (
           <div
             key={review.id}
-            className="review_card xl:min-w-[20vw] min-w-[40vw] flex flex-col whitespace-normal gap-y-6"
+            className="review_card xl:min-w-[20vw] min-w-[50vw] flex flex-col whitespace-normal gap-y-6"
           >
             <div className="flex gap-x-4">
               <div className="review_card_image">

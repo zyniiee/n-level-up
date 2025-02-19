@@ -10,7 +10,13 @@ const Header = () => {
     <header className="w-full fixed z-10 top-0 left-0 right-0 section_container_sml">
       <div className=" flex justify-between align-middle ">
         <Link href="/">
-          <Image src="/icons/logo.svg" alt="logo" width={135} height={100} />
+          <Image
+            src="/icons/logo.svg"
+            alt="logo"
+            className="w-[135px] max-sm:w-[110px]  md:w-[120px] lg:w-[135px] "
+            width={135}
+            height={100}
+          />{" "}
         </Link>
         <ul className="flex flex-row items-center gap-8">
           <li>

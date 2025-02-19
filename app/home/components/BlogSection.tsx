@@ -19,7 +19,7 @@ const BlogSection = () => {
   }, []);
 
   return (
-    <section className="section_container">
+    <section className="section_container xl:mt-0  mt-20 ">
       {featuredPosts.length > 0 ? (
         <div className="blog-category">
           <div className="flex justify-between items-end pb-8">

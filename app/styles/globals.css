@@ -1,6 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
 
 body {
   color: var(--foreground);
@@ -9,6 +17,7 @@ body {
   font-size: 14px;
   font-weight: 400;
   line-height: 150%;
+  -webkit-font-smoothing: antialiased;
 }
 
 :root {
@@ -21,16 +30,26 @@ body {
 a {
   cursor: pointer;
 }
+.page-container {
+  overflow: hidden;
+}
 .page_container {
   position: relative;
   max-width: 1440px;
   margin: 0 auto;
 }
 .section_container {
-  padding: 8rem 10vw 0rem 10vw;
+  padding: 15rem 10vw 0rem 10vw;
 }
+
 .section_container_sml {
   padding: 2rem 10vw;
+}
+@media screen and (max-width: 48rem) {
+  .section_container,
+  .section_container_sml {
+    padding: 2rem;
+  }
 }
 .section_container_fullw {
   padding: 8rem 0;
@@ -107,12 +126,22 @@ a {
   font-size: 4.571rem; /*64px*/
 }
 .team_member {
-  width: 18vw;
   position: relative;
   border: var(--secondary) 0.5px solid;
   border-radius: 10px;
   aspect-ratio: 273 / 362;
   align-content: end;
+  width: calc(100vw / 6);
+}
+@media screen and (max-width: 80rem) {
+  .team_member {
+    width: calc(100vw / 5);
+  }
+}
+@media screen and (max-width: 48rem) {
+  .team_member {
+    width: auto;
+  }
 }
 
 .team_member img {
@@ -234,7 +263,7 @@ a {
 }
 
 .projects_container {
-  position: relative; /* This ensures the img is positioned relative to the container */
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
@@ -247,7 +276,7 @@ a {
   height: calc(width);
   aspect-ratio: 1/1;
   border-radius: 10px;
-  transition: transform 0.1s ease-out; /* Smooth transition for transformations */
+  transition: transform 0.1s ease-out;
   object-fit: cover;
   z-index: 2;
   transform-origin: center;

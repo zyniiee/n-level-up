@@ -1,5 +1,5 @@
 .footer_about_heading {
-  font-size: 4rem;
+  font-size: 4vw;
   line-height: 120%;
 }
 .footer_heading {
@@ -22,4 +22,9 @@
   line-height: 150%;
   background: var(--foreground);
   color: var(--background);
+}
+@media screen and (max-width: 48rem) {
+  .footer_about_heading {
+    font-size: 2rem;
+  }
 }
