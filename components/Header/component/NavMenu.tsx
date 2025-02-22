@@ -21,7 +21,7 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
         ${isOpen ? "rotate-0" : "-rotate-90"}`}
       ></div>
 
-      <div className="nav_menu_content relative z-10 w-full h-full flex flex-col gap-4 justify-end items-center">
+      <div className="nav_menu_content relative z-10 w-full h-full flex flex-col gap-4 justify-center items-center">
         <div className="flex flex-col justify-center items-center w-full">
           <p className="font-semibold py-[1rem] md:py-[2rem] w-full border-b-[0.5px] border-[#aeaeae] text-center text-white">
             Khoá học LEVEL UP tư duy
@@ -138,20 +138,19 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
             })}
           </div>
         </div>
-
-        <div className="section_container_sml w-full">
-          <ul className="w-full pt-[25vh] flex justify-between">
-            {navMenuFooter.main.map((item) => (
-              <li key={item.title}>
-                <SecondaryButton
-                  text={item.title}
-                  href={item.href}
-                  variant="text"
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
+      </div>
+      <div className="section_container_sml w-full absolute  inset-x-0 bottom-0">
+        <ul className="w-full flex justify-between">
+          {navMenuFooter.main.map((item) => (
+            <li key={item.title}>
+              <SecondaryButton
+                text={item.title}
+                href={item.href}
+                variant="text"
+              />
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

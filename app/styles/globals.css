@@ -272,12 +272,12 @@ a {
   height: 100vh;
 }
 .circle_image_block {
-  width: 20rem;
-  height: 20rem;
+  width: 18rem;
+  height: 18rem;
 }
 .circle_item {
-  width: 20rem;
-  height: 20rem;
+  width: 18rem;
+  height: 18rem;
   border-radius: 100%;
   transform: rotate(0deg);
 }
@@ -305,8 +305,8 @@ a {
   transform: rotate(-300deg);
 }
 .circle_image_wrapper {
-  width: 20rem;
-  height: 20rem;
+  width: 18rem;
+  height: 18rem;
   inset: -100% auto auto;
 }
 @media screen and (max-width: 48rem) {
