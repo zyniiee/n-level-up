@@ -27,7 +27,7 @@ const GocNhinSection = () => {
               {" "}
               {title}
             </h3>
-            <Button text={cta} href={href}></Button>
+            <Button text={cta} href={href} />
           </div>
 
           <div className="blog_posts grid xl:grid-cols-4 grid-cols-2 gap-4">
@@ -51,7 +51,7 @@ const GocNhinSection = () => {
                       {post.properties.Name?.title?.[0]?.text?.content ||
                         "Untitled"}
                     </h5>
-                    <Button text={cta} href={`${href}/${slug}`}></Button>
+                    <Button text={cta} href={`${href}/${slug}`} />
                   </div>
                 </div>
               );

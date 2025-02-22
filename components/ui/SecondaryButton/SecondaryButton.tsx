@@ -25,7 +25,6 @@ const SecondaryButton: React.FC<ButtonProps> = ({
         whileHover="hover"
         animate="initial"
       >
-        {/* 2️⃣ Text-Only Button */}
         {variant === "text" && (
           <div className={`${styles.button_text_container} relative`}>
             <motion.div
@@ -45,7 +44,6 @@ const SecondaryButton: React.FC<ButtonProps> = ({
           </div>
         )}
 
-        {/* 3️⃣ Icon-Only Button */}
         {variant === "icon" && icon && (
           <div className={`${styles.button_text_container} relative`}>
             <motion.div

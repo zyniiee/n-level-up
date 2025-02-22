@@ -1,3 +1,12 @@
+//NavMenu
+export interface NavItem {
+  title: string;
+  href: string;
+}
+export interface Navigation {
+  main: NavItem[];
+}
+
 // Footer Related Interfaces
 export interface FooterAbout {
   id: number;

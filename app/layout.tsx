@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./styles/globals.css";
-
+import CustomCursor from "@/components/ui/Cursor/CustomCursor";
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
@@ -16,7 +16,11 @@ const RootLayout: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => (
   <html lang="en">
-    <body className={`${montserrat.variable} antialiased`}>{children}</body>
+    <body className={`${montserrat.variable} antialiased cursor-none`}>
+      {" "}
+      <CustomCursor />
+      {children}
+    </body>
   </html>
 );
 

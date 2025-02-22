@@ -1,6 +1,6 @@
 .button {
   background: transparent;
-  height: 16px;
+  height: 18px;
 }
 .button::before {
   content: "";
@@ -41,7 +41,7 @@
 .button_text_container {
   display: flex;
   flex-direction: column;
-  margin-top: -6px;
+  margin-top: -4px;
 }
 .button_text_hover {
   color: var(--secondary);

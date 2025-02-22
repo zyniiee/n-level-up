@@ -1,4 +1,4 @@
-import { About, Course, Team, Review, Footer } from "../types";
+import { About, Course, Team, Review, Footer, Navigation } from "../types";
 export interface Home {
   about: About;
   team: Team[];
@@ -85,7 +85,30 @@ export const home: Home[] = [
     ],
   },
 ];
-
+export const navMenuFooter: Navigation = {
+  main: [
+    {
+      title: "Giới thiệu",
+      href: "/about",
+    },
+    {
+      title: "Học viên",
+      href: "/",
+    },
+    {
+      title: "Góc nhìn",
+      href: "/",
+    },
+    {
+      title: "Blog",
+      href: "/",
+    },
+    {
+      title: "Liên hệ",
+      href: "/",
+    },
+  ],
+};
 export const footerData: Footer = {
   about: [
     {

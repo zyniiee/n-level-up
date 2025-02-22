@@ -1,5 +1,4 @@
 import React from "react";
-import { home } from "@/constants";
 import Image from "next/image";
 import { Review } from "@/types";
 interface ReviewSectionProps {
