@@ -17,7 +17,7 @@ const FooterLinks = ({ footer }: { footer: Footer }) => {
             const slug =
               course.properties.Slug?.rich_text?.[0]?.plain_text || "";
             return (
-              <li key={course.id}>
+              <li key={course.id} className="gap-4">
                 <SecondaryButton
                   text={
                     course.properties.Name?.title?.[0]?.text?.content ||

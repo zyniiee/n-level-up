@@ -15,20 +15,20 @@ const SecondaryButton: React.FC<ButtonProps> = ({
   text,
   href,
   icon,
-  variant = "default",
+  variant = "text",
 }) => {
   return (
     <Link href={href}>
       <motion.button
-        className={`${styles.button} flex items-center gap-4 pointer-events-auto border-secondary relative overflow-hidden `}
+        className={`${styles.button} flex items-center mb-1 pointer-events-auto border-secondary relative overflow-hidden `}
         initial="initial"
         whileHover="hover"
         animate="initial"
       >
-        {variant === "text" && (
-          <div className={`${styles.button_text_container} relative`}>
+        {variant === "text" && text && (
+          <div className={`${styles.button_text_container} relative `}>
             <motion.div
-              className="left-0 w-full"
+              className="left-0  w-full"
               variants={{ initial: { y: "0%" }, hover: { y: "-100%" } }}
               transition={{ duration: 0.5, ease: "circOut" }}
             >

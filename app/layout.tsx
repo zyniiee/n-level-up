@@ -8,8 +8,11 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Level Up",
-  description: "By Zynieeeee",
+  title: "LEVEL UP - Art & Design Courses",
+  description: "LEVEL UP - Art & Design Courses",
+  icons: {
+    icon: "/icons/levelup-icon.png",
+  },
 };
 
 const RootLayout: React.FC<{

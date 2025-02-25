@@ -12,7 +12,7 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
 
   return (
     <div
-      className={`w-screen h-screen fixed inset-0 z-19 transition-opacity duration-300 ${
+      className={`w-screen h-screen fixed inset-0 z-19 transition-opacity duration-100  ${
         isOpen ? "opacity-100 visible" : "opacity-0 invisible"
       }`}
     >
@@ -42,7 +42,7 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                     className="page_course_heading relative w-full font-bold overflow-hidden text-[1.25rem] md:text-[2rem] xl:text-[3rem] border-secondary flex items-start text-white"
                   >
                     <motion.button
-                      className="course_button py-[1rem] md:py-[2rem] w-full flex items-start gap-4 pointer-events-auto justify-center relative border-b-[0.5px] border-[#aeaeae]"
+                      className="course_button py-[1rem] md:py-[2rem] w-full flex items-center gap-4 pointer-events-auto justify-center relative border-b-[0.5px] border-[#aeaeae]"
                       initial="initial"
                       whileHover="hover"
                       animate="initial"

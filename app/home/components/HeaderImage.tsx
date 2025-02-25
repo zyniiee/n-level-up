@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 interface Image {
   id: string;
@@ -11,6 +11,8 @@ const HeaderImage: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [showSatellites, setShowSatellites] = useState<boolean>(false);
   const [startImageToggle, setStartImageToggle] = useState<boolean>(false);
+  const animationRef = useRef<number | null>(null);
+  const lastTimeRef = useRef<number>(0);
 
   const images: Image[] = [
     { id: "_01", src: "/images/ui.jpg" },
@@ -23,29 +25,40 @@ const HeaderImage: React.FC = () => {
 
   useEffect(() => {
     setIsStarted(true);
-    setTimeout(() => setShowSatellites(true), 4400);
-    setTimeout(() => setStartImageToggle(true), 13000);
 
-    let interval: NodeJS.Timeout;
+    setTimeout(() => setShowSatellites(true), 3000);
+
+    setTimeout(() => setStartImageToggle(true), 9930);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+
     if (startImageToggle) {
-      interval = setInterval(() => {
+      intervalId = setInterval(() => {
         setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
-      }, 1000);
+      }, 200);
     }
 
     return () => {
-      if (interval) {
-        clearInterval(interval);
+      if (intervalId) {
+        clearInterval(intervalId);
       }
     };
-  }, [startImageToggle]);
+  }, [startImageToggle, images.length]);
 
   return (
     <div className="header_image_wrapper absolute inset-0 flex flex-col justify-center items-center w-full h-screen z-10">
       <div className="circle_image_block relative rounded-full perspective-2000">
         {/* Main Circle */}
         <div
-          className={`circle_item _01 absolute  rounded-full perspective-1000 ${
+          className={`circle_item _01 absolute rounded-full perspective-1000 ${
             isStarted ? "opacity-100" : "opacity-0"
           }`}
           style={{
@@ -53,14 +66,14 @@ const HeaderImage: React.FC = () => {
               ? "rotate(0deg)"
               : "translateY(150vh) rotate3d(0,1,0,360deg)",
             zIndex: 10,
-            transition: "all 1.4s cubic-bezier(0.33, 1, 0.68, 1)",
+            transition: "all 1s cubic-bezier(0.33, 1, 0.68, 1)",
             display: isStarted ? "block" : "none",
             animation: isStarted
-              ? "mainCircle 13s cubic-bezier(0.33, 1, 0.68, 1) forwards"
+              ? "mainCircle 10s cubic-bezier(0.33, 1, 0.68, 1) forwards"
               : "none",
           }}
         >
-          <div className="circle_image_wrapper absolute  perspective-600 -inset-full">
+          <div className="circle_image_wrapper absolute perspective-600 -inset-full">
             <div className="circle_image_item _01 relative w-full h-full">
               <div className="image_toggle_block absolute w-full h-full z-20">
                 {startImageToggle &&
@@ -72,6 +85,9 @@ const HeaderImage: React.FC = () => {
                       } absolute w-full h-full object-cover ${
                         activeIndex === index ? "block" : "hidden"
                       }`}
+                      style={{
+                        transition: "opacity 0.2s ease-in-out",
+                      }}
                       src={image.src}
                       alt=""
                     />
@@ -90,18 +106,18 @@ const HeaderImage: React.FC = () => {
         {[2, 3, 4, 5, 6].map((num) => (
           <div
             key={num}
-            className={`circle_item _0${num} absolute rounded-full perspective-1000 transition-all duration-1000 
+            className={`circle_item _0${num} absolute rounded-full perspective-1000 transition-all duration-700 
               ${showSatellites ? "opacity-100" : "opacity-0"}`}
             style={{
               zIndex: 1,
               display: showSatellites ? "block" : "none",
               transformOrigin: "center center",
               animation: showSatellites
-                ? `satelliteAndRotate${num} 8.6s cubic-bezier(0.33, 1, 0.68, 1) forwards`
+                ? `satelliteAndRotate${num} 6s cubic-bezier(0.33, 1, 0.68, 1) forwards`
                 : "none",
             }}
           >
-            <div className="circle_image_wrapper absolute  perspective-600 -inset-full">
+            <div className="circle_image_wrapper absolute perspective-600 -inset-full">
               <div className={`circle_image_item _0${num} w-full h-full`}>
                 <img
                   className="circle_image w-full h-full object-cover"
@@ -113,7 +129,6 @@ const HeaderImage: React.FC = () => {
           </div>
         ))}
       </div>
-
       <style jsx>{`
         @keyframes mainCircle {
           0% {
@@ -135,7 +150,7 @@ const HeaderImage: React.FC = () => {
           50% {
             transform: rotate(0deg);
           }
-          88% {
+          80% {
             transform: rotate(-180deg);
           }
           90% {
@@ -158,11 +173,11 @@ const HeaderImage: React.FC = () => {
             transform: rotateZ(-60deg);
             opacity: 1;
           }
-          70% {
+          60% {
             transform: rotateZ(-180deg) translateY(0);
             opacity: 1;
           }
-          80.05% {
+          60.05% {
             transform: rotateZ(-180deg) translateY(0);
             opacity: 0;
           }
@@ -184,11 +199,11 @@ const HeaderImage: React.FC = () => {
             transform: rotateZ(-120deg);
             opacity: 1;
           }
-          70% {
+          60% {
             transform: rotateZ(-180deg) translateY(0);
             opacity: 1;
           }
-          80.05% {
+          60.05% {
             transform: rotateZ(-180deg) translateY(0);
             opacity: 0;
           }
@@ -210,11 +225,11 @@ const HeaderImage: React.FC = () => {
             transform: rotateZ(180deg);
             opacity: 1;
           }
-          70% {
+          60% {
             transform: rotateZ(180deg) translateY(0);
             opacity: 1;
           }
-          80.05% {
+          60.05% {
             transform: rotateZ(180deg) translateY(0);
             opacity: 0;
           }
@@ -236,11 +251,11 @@ const HeaderImage: React.FC = () => {
             transform: rotateZ(120deg);
             opacity: 1;
           }
-          70% {
+          60% {
             transform: rotateZ(180deg) translateY(0);
             opacity: 1;
           }
-          80.05% {
+          60.05% {
             transform: rotateZ(180deg) translateY(0);
             opacity: 0;
           }

@@ -12,7 +12,7 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <header className="w-full fixed z-20 top-0 left-0 right-0 ">
+    <header className="nav w-full fixed z-20 top-0 left-0 right-0  ">
       <div className=" flex justify-between align-middle relative z-10 section_container_sml">
         <Link href="/">
           <Image

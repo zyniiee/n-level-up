@@ -1,13 +1,31 @@
 "use client";
 import { useCourses } from "@/app/context/CourseContext";
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 
 const CoursesList = () => {
   const { courses, isLoading } = useCourses();
-  const [hoveredImage, setHoveredImage] = useState<string>("");
+  const [hoveredImage, setHoveredImage] = useState("");
+  const [isHovering, setIsHovering] = useState(false);
+  const sectionRef = useRef(null);
   const href = "/courses";
+
+  // Fixed animation values for consistency
+  const leftVariants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: { opacity: 1, x: 0 },
+  };
+
+  const rightVariants = {
+    hidden: { opacity: 0, x: 100 },
+    visible: { opacity: 1, x: 0 },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 },
+  };
 
   useEffect(() => {
     if (courses.length > 0) {
@@ -22,42 +40,81 @@ const CoursesList = () => {
   return (
     <section className="section_container">
       <div className="xl:grid grid-cols-2 flex flex-col">
-        {/* Fixed image section */}
-        <div className="h-auto flex justify-center lg:pr-20 items-start pt-8">
-          {hoveredImage && (
+        {/* Image section */}
+        <motion.div
+          className="h-auto flex justify-center lg:pr-20 items-start pt-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.3 }}
+          variants={leftVariants}
+          transition={{ duration: 0.6 }}
+        >
+          {hoveredImage && isHovering && (
             <img
               src={hoveredImage}
               alt="Selected course"
               className="object-cover transition-all duration-300 ease-in-out"
             />
           )}
-        </div>
+        </motion.div>
 
         {/* Course list section */}
-        <div className="pt-16 xl:pt-0">
-          <p className="font-semibold text-secondary  pb-2">
+        <motion.div
+          className="pt-16 xl:pt-0"
+          onMouseLeave={() => setIsHovering(false)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.3 }}
+          variants={rightVariants}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.p
+            className="font-semibold text-secondary pb-2"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.3 }}
+            variants={itemVariants}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
             Khoá học LEVEL UP tư duy
-          </p>
-          {courses.map((course) => {
+          </motion.p>
+
+          {courses.map((course, index) => {
             const mainImage = course.properties["main-image"]?.url || "";
             const slug =
               course.properties.Slug?.rich_text?.[0]?.plain_text || "";
 
             return (
-              <div
+              <motion.div
                 key={course.id}
                 className="flex items-center cursor-pointer w-full"
-                onMouseEnter={() => setHoveredImage(mainImage)}
+                onMouseEnter={() => {
+                  setHoveredImage(mainImage);
+                  setIsHovering(true);
+                }}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.3 }}
+                variants={itemVariants}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.2 + index * 0.1,
+                }}
               >
                 <Link
                   href={`${href}/${slug}`}
-                  className="page_course_heading relative w-full font-bold overflow-hidden xl:text-[1.5vw]  text-[1.25rem] border-secondary  flex items-start"
+                  className="page_course_heading relative w-full font-bold overflow-hidden xl:text-[1.5vw] 2xl:text-[3vw] text-[1.25rem] border-secondary"
                 >
                   <motion.button
-                    className="course_button  py-6 w-full flex items-start gap-4 pointer-events-auto relative "
+                    className="course_button flex items-center py-6 w-full gap-4 pointer-events-auto relative"
                     initial="initial"
                     whileHover="hover"
                     animate="initial"
+                    variants={{
+                      initial: { x: "-30px" },
+                      hover: { x: "0px" },
+                    }}
+                    transition={{ duration: 0.5, ease: "circOut" }}
                   >
                     <div className="course_arrow_block relative overflow-hidden">
                       <motion.svg
@@ -88,7 +145,7 @@ const CoursesList = () => {
                       </motion.svg>
                     </div>
 
-                    <div className="course_button_text_container relative">
+                    <div className="course_button_text_container text-2xl xl:text-3xl 2xl:text-6xl relative">
                       <motion.div
                         className="left-0 w-full whitespace-nowrap overflow-hidden text-ellipsis"
                         variants={{
@@ -114,7 +171,7 @@ const CoursesList = () => {
                       </motion.div>
                     </div>
 
-                    <div className="course_arrow_block relative overflow-hidden">
+                    <div className="course_arrow_block relative overflow-hidden ml-1">
                       <motion.svg
                         className="course_arrow_right"
                         xmlns="http://www.w3.org/2000/svg"
@@ -145,10 +202,10 @@ const CoursesList = () => {
                     </div>
                   </motion.button>
                 </Link>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

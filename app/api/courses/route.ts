@@ -10,9 +10,16 @@ export async function GET() {
     }
 
     //Filter only "Published" posts
-    const publishedCourses = coursesData.filter(
-      (course: any) => course.properties.Status?.status?.name === "Published"
-    );
+    const publishedCourses = coursesData
+      .filter(
+        (course: any) => course.properties.Status?.status?.name === "Published"
+      )
+      .sort((a: any, b: any) => {
+        const orderA = a.properties["Thứ tự"]?.number || 0;
+        const orderB = b.properties["Thứ tự"]?.number || 0;
+        return orderA - orderB;
+      });
+
     return NextResponse.json({
       allCourses: publishedCourses,
     });

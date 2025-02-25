@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 *,
 *::before,
 *::after {
@@ -39,7 +40,7 @@ a {
 }
 
 .scroll-container::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
+  display: none; /* Safari and Chrome aeaeae */
 }
 .page-container {
   overflow: hidden;
@@ -65,7 +66,11 @@ a {
 .section_container_fullw {
   padding: 8rem 0;
 }
-
+.nav {
+  background: rgba(5, 5, 5, 0.051);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
 /*HOME*/
 .hero_text {
   color: var(--background);
@@ -79,7 +84,7 @@ a {
 }
 .page_about_heading {
   font-weight: 600;
-  line-height: 130%;
+  line-height: 140%;
 }
 .page_about_subHeading {
   color: var(--secondary);
@@ -159,11 +164,11 @@ a {
   background: var(--background) url("../../public/images/review-bg.png") repeat
     center;
   padding: 2rem 1.5rem;
-  aspect-ratio: 4 / 3;
-  width: 100%;
+  aspect-ratio: 290 / 379;
   border-radius: 10px;
   white-space: normal;
   word-wrap: break-word;
+  width: calc(24% - 0.8rem) !important;
 }
 
 .review_card_image {
@@ -182,6 +187,7 @@ a {
   height: 100%;
   object-fit: cover;
 }
+
 .blog_posts {
   width: 100%;
 }
@@ -233,6 +239,15 @@ a {
   width: 100%;
   perspective: 1000px;
 }
+.section_container.project {
+  min-height: 100vh;
+  overflow: visible;
+}
+
+.sticky {
+  position: -webkit-sticky; /* Safari support */
+  position: sticky;
+}
 
 .projects_cover {
   background-position: center;
@@ -257,7 +272,7 @@ a {
 .projects_container img {
   width: 40%;
   height: auto;
-  aspect-ratio: 1/1;
+  aspect-ratio: 412/360;
   border-radius: 10px;
   transition: transform 0.1s ease-out;
   object-fit: cover;
@@ -396,17 +411,8 @@ a {
   display: flex;
   flex-direction: column;
   margin-top: -4px;
-  font-size: 2rem;
   line-height: 1.25;
   overflow: hidden;
-}
-@media screen and (max-width: 48rem) {
-  .course_button_text_container {
-    font-size: 1.5rem;
-  }
-  .course_arrow_block {
-    margin-top: 6px;
-  }
 }
 
 .course_button_text_hover {
