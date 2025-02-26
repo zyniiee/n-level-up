@@ -42,7 +42,7 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                     className="page_course_heading relative w-full font-bold overflow-hidden text-[1.25rem] md:text-[2rem] xl:text-[3rem] border-secondary flex items-start text-white"
                   >
                     <motion.button
-                      className="course_button py-[1rem] md:py-[2rem] w-full flex items-center gap-4 pointer-events-auto justify-center relative border-b-[0.5px] border-[#aeaeae]"
+                      className="course_button py-[1.5rem] 2xl:py-[2rem] w-full flex items-center gap-4 pointer-events-auto justify-center relative border-b-[0.5px] border-[#aeaeae]"
                       initial="initial"
                       whileHover="hover"
                       animate="initial"
@@ -76,7 +76,7 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                         </motion.svg>
                       </div>
 
-                      <div className="course_button_text_container relative text-center">
+                      <div className="course_button_text_container text-4xl 2xl:text-6xl relative text-center">
                         <motion.div
                           className="left-0 w-full whitespace-nowrap overflow-hidden text-ellipsis"
                           variants={{
@@ -139,7 +139,7 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
           </div>
         </div>
       </div>
-      <div className="section_container_sml w-full absolute  inset-x-0 bottom-0">
+      <div className="section_container_sml w-full absolute  z-10 inset-x-0 bottom-0">
         <ul className="w-full flex justify-between">
           {navMenuFooter.main.map((item) => (
             <li key={item.title}>
