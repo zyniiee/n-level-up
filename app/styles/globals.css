@@ -42,9 +42,7 @@ a {
 .scroll-container::-webkit-scrollbar {
   display: none; /* Safari and Chrome aeaeae */
 }
-.page-container {
-  overflow: hidden;
-}
+
 .page_container {
   position: relative;
   max-width: 1440px;

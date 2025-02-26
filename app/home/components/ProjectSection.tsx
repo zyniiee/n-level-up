@@ -149,76 +149,21 @@ const Project = () => {
       .catch((err) => console.error("Fetch error:", err));
   }, []);
 
-  useEffect(() => {
-    if (!sectionRef.current) return;
-
-    const sectionTop = sectionRef.current.offsetTop;
-    const sectionHeight = sectionRef.current.offsetHeight;
-
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-
-      const shouldShowFixed =
-        scrollY > sectionTop + 20 && scrollY < sectionTop + sectionHeight - 20;
-
-      setShowFixedHeader(shouldShowFixed);
-
-      // Hide/show the original text
-      if (originalTextRef.current) {
-        originalTextRef.current.style.opacity = shouldShowFixed ? "0" : "1";
-        originalTextRef.current.style.visibility = shouldShowFixed
-          ? "hidden"
-          : "visible";
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [featuredProject]);
-
   return (
     <>
-      {/* Fixed header that appears during scroll */}
-      {showFixedHeader && (
-        <div
-          style={{
-            position: "fixed",
-            top: "5rem",
-            left: "10vw",
-            zIndex: 100,
-            transition: "opacity 0.2s ease-in",
-            opacity: showFixedHeader ? 1 : 0,
-            pointerEvents: showFixedHeader ? "auto" : "none",
-          }}
-        >
-          <p className="text-md inline-block">
-            <span className="uppercase font-bold">Level up </span>- Art & Design
-            Courses
-          </p>
-        </div>
-      )}
-
-      {/* Regular section with normal content */}
       <section
         ref={sectionRef}
         className="section_container xl:grid grid-cols-3 gap-8 xl:mt-0 mt-20"
       >
         <div className="flex xl:flex-col justify-between items-center md:items-start col-span-1 xl:pb-0 pb-8">
-          <p
-            ref={originalTextRef}
-            className="text-md inline-block"
-            style={{ transition: "opacity 0.2s ease-in" }}
-          >
+          <p className="text-md inline-block sticky top-32">
             <span className="uppercase font-bold">Level up </span>- Art & Design
             Courses
           </p>
           <Button text="Xem chi tiết" href={href} />
         </div>
 
-        <div
-          ref={parentContainerRef}
-          className="col-span-2 gap-8 flex flex-col"
-        >
+        <div className="col-span-2 gap-8 flex flex-col">
           {featuredProject.slice(0, 3).map((project) => (
             <ProjectItem key={project.id} project={project} />
           ))}

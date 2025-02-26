@@ -7,22 +7,48 @@ const CustomCursor: React.FC = () => {
   const [cursorPosition, setCursorPosition] = useState<{
     x: number;
     y: number;
-  }>({ x: 0, y: 0 });
+  }>({ x: -20, y: -20 });
+
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   useEffect(() => {
-    const initialMousePosition = {
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2,
-    };
-    setCursorPosition(initialMousePosition);
+    const checkMobile = () => {
+      const isMobileDevice =
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        ) || window.innerWidth <= 768;
 
-    const updateCursor = (e: MouseEvent) => {
-      setCursorPosition({ x: e.clientX, y: e.clientY });
+      setIsMobile(isMobileDevice);
     };
 
-    window.addEventListener("mousemove", updateCursor);
-    return () => window.removeEventListener("mousemove", updateCursor);
-  }, []);
+    checkMobile();
+
+    window.addEventListener("resize", checkMobile);
+
+    if (!isMobile) {
+      const initialMousePosition = {
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2,
+      };
+      setCursorPosition(initialMousePosition);
+
+      const updateCursor = (e: MouseEvent) => {
+        setCursorPosition({ x: e.clientX, y: e.clientY });
+      };
+
+      window.addEventListener("mousemove", updateCursor);
+      return () => {
+        window.removeEventListener("mousemove", updateCursor);
+        window.removeEventListener("resize", checkMobile);
+      };
+    } else {
+      return () => window.removeEventListener("resize", checkMobile);
+    }
+  }, [isMobile]);
+
+  if (isMobile) {
+    return null;
+  }
 
   return (
     <motion.div
