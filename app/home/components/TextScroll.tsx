@@ -11,7 +11,10 @@ const TextScroll = () => {
   );
 
   return (
-    <section className="relative w-full overflow-hidden pt-32">
+    <section
+      className="relative w-full overflow-hidden pt-32"
+      id="AboutSection"
+    >
       {/* TOP LINE: Left to Right */}
       <div className="w-full overflow-hidden whitespace-nowrap">
         <div className="relative w-[200%] animate-marquee-reverse">

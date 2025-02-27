@@ -11,7 +11,6 @@ const CoursesList = () => {
   const sectionRef = useRef(null);
   const href = "/courses";
 
-  // Fixed animation values for consistency
   const leftVariants = {
     hidden: { opacity: 0, x: -100 },
     visible: { opacity: 1, x: 0 },
@@ -38,7 +37,7 @@ const CoursesList = () => {
   }
 
   return (
-    <section className="section_container">
+    <section className="section_container w-full">
       <div className="xl:grid grid-cols-2 flex flex-col">
         {/* Image section */}
         <motion.div
@@ -69,7 +68,7 @@ const CoursesList = () => {
           transition={{ duration: 0.6 }}
         >
           <motion.p
-            className="font-semibold text-secondary pb-2"
+            className="font-semibold text-secondary pb-4 border-b-[0.5px] border-secondary"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.3 }}
@@ -87,7 +86,7 @@ const CoursesList = () => {
             return (
               <motion.div
                 key={course.id}
-                className="flex items-center cursor-pointer w-full"
+                className="flex items-center cursor-pointer w-full "
                 onMouseEnter={() => {
                   setHoveredImage(mainImage);
                   setIsHovering(true);
@@ -103,7 +102,7 @@ const CoursesList = () => {
               >
                 <Link
                   href={`${href}/${slug}`}
-                  className="page_course_heading relative w-full font-bold overflow-hidden xl:text-[1.5vw] 2xl:text-[3vw] text-[1.25rem] border-secondary"
+                  className="page_course_heading relative w-full font-bold py-2 border-secondary"
                 >
                   <motion.button
                     className="course_button flex items-center py-6 w-full gap-4 pointer-events-auto relative"
@@ -118,9 +117,9 @@ const CoursesList = () => {
                   >
                     <div className="course_arrow_block relative overflow-hidden">
                       <motion.svg
-                        className="course_arrow_left"
+                        className="absolute"
                         xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
+                        viewBox="0 0 16 8"
                         fill="#aeaeae"
                         variants={{
                           initial: { x: "0%", opacity: 0 },
@@ -128,12 +127,16 @@ const CoursesList = () => {
                         }}
                         transition={{ duration: 0.5, ease: "circOut" }}
                       >
-                        <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                        <path
+                          xmlns="http://www.w3.org/2000/svg"
+                          d="M15.3536 4.35355C15.5488 4.15829 15.5488 3.84171 15.3536 3.64645L12.1716 0.464466C11.9763 0.269204 11.6597 0.269204 11.4645 0.464466C11.2692 0.659728 11.2692 0.976311 11.4645 1.17157L14.2929 4L11.4645 6.82843C11.2692 7.02369 11.2692 7.34027 11.4645 7.53553C11.6597 7.7308 11.9763 7.7308 12.1716 7.53553L15.3536 4.35355ZM0 4.5L15 4.5V3.5L0 3.5L0 4.5Z"
+                          fill="#AEAEAE"
+                        />{" "}
                       </motion.svg>
                       <motion.svg
-                        className="course_arrow_left absolute"
+                        className="absolute"
                         xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
+                        viewBox="0 0 16 8"
                         fill="currentColor"
                         variants={{
                           initial: { x: "-100%", opacity: 0 },
@@ -141,13 +144,17 @@ const CoursesList = () => {
                         }}
                         transition={{ duration: 0.5, ease: "circOut" }}
                       >
-                        <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                        <path
+                          xmlns="http://www.w3.org/2000/svg"
+                          d="M15.3536 4.35355C15.5488 4.15829 15.5488 3.84171 15.3536 3.64645L12.1716 0.464466C11.9763 0.269204 11.6597 0.269204 11.4645 0.464466C11.2692 0.659728 11.2692 0.976311 11.4645 1.17157L14.2929 4L11.4645 6.82843C11.2692 7.02369 11.2692 7.34027 11.4645 7.53553C11.6597 7.7308 11.9763 7.7308 12.1716 7.53553L15.3536 4.35355ZM0 4.5L15 4.5V3.5L0 3.5L0 4.5Z"
+                          fill="#currentColor"
+                        />{" "}
                       </motion.svg>
                     </div>
 
-                    <div className="course_button_text_container text-2xl xl:text-3xl 2xl:text-6xl relative">
+                    <div className="course_button_text_container  text-course-heading leading-relaxed relative">
                       <motion.div
-                        className="left-0 w-full whitespace-nowrap overflow-hidden text-ellipsis"
+                        className="left-0 w-full whitespace-nowrap text-ellipsis "
                         variants={{
                           initial: { y: "0%" },
                           hover: { y: "-100%" },
@@ -159,7 +166,7 @@ const CoursesList = () => {
                       </motion.div>
 
                       <motion.div
-                        className="course_button_text_hover absolute left-0 w-full whitespace-nowrap overflow-hidden text-ellipsis"
+                        className="course_button_text_hover absolute left-0 w-full whitespace-nowrap text-ellipsis"
                         variants={{
                           initial: { y: "100%" },
                           hover: { y: "0%" },
@@ -171,11 +178,11 @@ const CoursesList = () => {
                       </motion.div>
                     </div>
 
-                    <div className="course_arrow_block relative overflow-hidden ml-1">
+                    <div className="course_arrow_block relative overflow-hidden ">
                       <motion.svg
-                        className="course_arrow_right"
+                        className="absolute"
                         xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
+                        viewBox="0 0 16 8"
                         fill="#aeaeae"
                         variants={{
                           initial: { x: "0%", opacity: 0 },
@@ -183,13 +190,17 @@ const CoursesList = () => {
                         }}
                         transition={{ duration: 0.5, ease: "circOut" }}
                       >
-                        <path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path>
+                        <path
+                          xmlns="http://www.w3.org/2000/svg"
+                          d="M0.646445 3.64645C0.451183 3.84171 0.451183 4.15829 0.646445 4.35355L3.82843 7.53553C4.02369 7.7308 4.34027 7.7308 4.53553 7.53553C4.73079 7.34027 4.73079 7.02369 4.53553 6.82843L1.70711 4L4.53553 1.17157C4.7308 0.97631 4.7308 0.659727 4.53553 0.464465C4.34027 0.269203 4.02369 0.269203 3.82843 0.464465L0.646445 3.64645ZM16 3.5L0.999999 3.5L0.999999 4.5L16 4.5L16 3.5Z"
+                          fill="#AEAEAE"
+                        />{" "}
                       </motion.svg>
 
                       <motion.svg
-                        className="course_arrow_right absolute"
+                        className="absolute"
                         xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
+                        viewBox="0 0 16 8"
                         fill="currentColor"
                         variants={{
                           initial: { x: "100%", opacity: 0 },
@@ -197,7 +208,11 @@ const CoursesList = () => {
                         }}
                         transition={{ duration: 0.5, ease: "circOut" }}
                       >
-                        <path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path>
+                        <path
+                          xmlns="http://www.w3.org/2000/svg"
+                          d="M0.646445 3.64645C0.451183 3.84171 0.451183 4.15829 0.646445 4.35355L3.82843 7.53553C4.02369 7.7308 4.34027 7.7308 4.53553 7.53553C4.73079 7.34027 4.73079 7.02369 4.53553 6.82843L1.70711 4L4.53553 1.17157C4.7308 0.97631 4.7308 0.659727 4.53553 0.464465C4.34027 0.269203 4.02369 0.269203 3.82843 0.464465L0.646445 3.64645ZM16 3.5L0.999999 3.5L0.999999 4.5L16 4.5L16 3.5Z"
+                          fill="#currentColor"
+                        />{" "}
                       </motion.svg>
                     </div>
                   </motion.button>

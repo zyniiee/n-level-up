@@ -78,7 +78,7 @@ const BlogSection = () => {
             className="flex justify-between items-end pb-8"
             variants={itemVariants}
           >
-            <h3 className="w-1/2 font-medium xl:text-[3vw] text-[4vw] leading-[125%]">
+            <h3 className="w-2/5 font-medium text-blog-heading leading-[125%]">
               {title}
             </h3>
             <Button text={cta} href={href} />

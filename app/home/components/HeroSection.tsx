@@ -4,31 +4,42 @@ import Image from "next/image";
 import HeaderImage from "./HeaderImage";
 
 const HeroSection = () => {
+  const scrollToAbout = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const aboutSection = document.getElementById("AboutSection");
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <div className="overflow-hidden relative">
-      <div className="h-svh content-center relative">
-        <h1 className="xl:text-[15vw] text-[15vw] hero_text uppercase text-center font-bold">
+    <div className="overflow-hidden relative z-10">
+      <div className="h-svh content-center relative ">
+        <h1 className="hero_text text-hero-heading uppercase text-center font-bold">
           Level Up
         </h1>
-        <div className="absolute bottom-4 flex flex-col p-2 w-full justify-center items-center">
-          <div className="scroll-down-container">
-            <div className="arrow-container">
-              <Image
-                className="arrow arrow-1"
-                src="../icons/arrow-down.svg"
-                alt="scroll down"
-                width={10}
-                height={10}
-              />
-              <Image
-                className="arrow arrow-2"
-                src="../icons/arrow-down.svg"
-                alt="scroll down"
-                width={10}
-                height={10}
-              />
-            </div>
-          </div>
+      </div>
+      <div className="absolute bottom-4 flex flex-col p-2 w-full justify-center items-center z-20">
+        <div className="scroll-down-container">
+          <button
+            onClick={scrollToAbout}
+            className="arrow-container bg-transparent border-0 cursor-pointer"
+          >
+            <Image
+              className="arrow arrow-1"
+              src="../icons/arrow-down.svg"
+              alt="scroll down"
+              width={10}
+              height={10}
+            />
+            <Image
+              className="arrow arrow-2"
+              src="../icons/arrow-down.svg"
+              alt="scroll down"
+              width={10}
+              height={10}
+            />
+          </button>
         </div>
       </div>
       <HeaderImage />

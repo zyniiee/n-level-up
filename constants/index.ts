@@ -64,7 +64,7 @@ export const home: Home[] = [
         mainImage: "/images/review.png",
         suggest: "LEVEL UP - Art & Design Course",
         quote:
-          "Mình là học viên của khoá học Advanced Typograph. Khoá học Advanced Typography đã giúp mình hiểu thêm được tầm quan trọng của Typography trong thiết kế và mang lại rất nhiều kiến thức thú vị. Giảng viên rất có tâm, thầy luôn tìm cách giải thích dễ hiểu và gần gũi nhất. ",
+          "Mình là học viên của khoá học Advanced Typograph. Mình là học viên của khoá học Advanced Typograph. Khoá học Advanced Typography đã giúp mình hiểu thêm được tầm quan trọng của Typography trong thiết kế và mang lại rất nhiều kiến thức thú vị. Giảng viên rất có tâm, thầy luôn tìm cách giải thích dễ hiểu và gần gũi nhất. ",
       },
       {
         id: 5,
@@ -72,7 +72,7 @@ export const home: Home[] = [
         mainImage: "/images/review.png",
         suggest: "LEVEL UP - Art & Design Course",
         quote:
-          "Mình là học viên của khoá học Advanced Typograph. Khoá học Advanced Typography đã giúp mình hiểu thêm được tầm quan trọng của Typography trong thiết kế và mang lại rất nhiều kiến thức thú vị. Giảng viên rất có tâm, thầy luôn tìm cách giải thích dễ hiểu và gần gũi nhất. ",
+          "Mình là học viên của khoá học Advanced Typograph. Mình là học viên của khoá học Advanced Typograph. Mình là học viên của khoá học Advanced Typograph. Mình là học viên của khoá học Advanced Typograph.Khoá học Advanced Typography đã giúp mình hiểu thêm được tầm quan trọng của Typography trong thiết kế và mang lại rất nhiều kiến thức thú vị. Giảng viên rất có tâm, thầy luôn tìm cách giải thích dễ hiểu và gần gũi nhất. ",
       },
       {
         id: 6,

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useCourses } from "@/app/context/CourseContext";
@@ -7,14 +7,42 @@ import SecondaryButton from "@/components/ui/SecondaryButton/SecondaryButton";
 import { navMenuFooter } from "@/constants";
 
 const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
-  const { courses } = useCourses();
+  const { courses, isLoading } = useCourses();
   const href = "/courses";
+  const [hoveredImage, setHoveredImage] = useState("");
+  const [isHovering, setIsHovering] = useState(false);
+  const sectionRef = useRef(null);
 
+  const leftVariants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: { opacity: 1, x: 0 },
+  };
+
+  const rightVariants = {
+    hidden: { opacity: 0, x: 100 },
+    visible: { opacity: 1, x: 0 },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  useEffect(() => {
+    if (courses.length > 0) {
+      setHoveredImage(courses[0].properties["main-image"]?.url || "");
+    }
+  }, [courses]);
+
+  if (isLoading) {
+    return <div> </div>;
+  }
   return (
     <div
-      className={`w-screen h-screen fixed inset-0 z-19 transition-opacity duration-100  ${
+      className={`w-screen h-screen fixed inset-0 z-20 transition-opacity duration-100 ${
         isOpen ? "opacity-100 visible" : "opacity-0 invisible"
       }`}
+      style={{ maxWidth: "100vw", margin: 0 }}
     >
       <div
         className={`backgound_nav w-full h-full inset-0 absolute origin-top-right bg-[#141414] transition-transform duration-100 
@@ -22,36 +50,54 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
       ></div>
 
       <div className="nav_menu_content relative z-10 w-full h-full flex flex-col gap-4 justify-center items-center">
-        <div className="flex flex-col justify-center items-center w-full">
+        <div className="flex flex-col justify-center items-center w-full  mx-auto">
           <p className="font-semibold py-[1rem] md:py-[2rem] w-full border-b-[0.5px] border-[#aeaeae] text-center text-white">
             Khoá học LEVEL UP tư duy
           </p>
 
-          <div className="w-full">
-            {courses.map((course) => {
+          <div className="w-full flex flex-col items-center">
+            {courses.map((course, index) => {
+              const mainImage = course.properties["main-image"]?.url || "";
               const slug =
                 course.properties.Slug?.rich_text?.[0]?.plain_text || "";
 
               return (
-                <div
+                <motion.div
                   key={course.id}
-                  className="flex items-center cursor-pointer w-full"
+                  className="flex items-center justify-center cursor-pointer w-full"
+                  onMouseEnter={() => {
+                    setHoveredImage(mainImage);
+                    setIsHovering(true);
+                  }}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: false, amount: 0.3 }}
+                  variants={itemVariants}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.2 + index * 0.1,
+                  }}
                 >
                   <Link
                     href={`${href}/${slug}`}
-                    className="page_course_heading relative w-full font-bold overflow-hidden text-[1.25rem] md:text-[2rem] xl:text-[3rem] border-secondary flex items-start text-white"
+                    className="page_course_heading relative w-full font-bold py-2 border-secondary text-center"
                   >
                     <motion.button
-                      className="course_button py-[1.5rem] 2xl:py-[2rem] w-full flex items-center gap-4 pointer-events-auto justify-center relative border-b-[0.5px] border-[#aeaeae]"
+                      className="course_button  flex items-center justify-center py-6 w-full gap-4 pointer-events-auto relative"
                       initial="initial"
                       whileHover="hover"
                       animate="initial"
+                      variants={{
+                        initial: { x: "0px" },
+                        hover: { x: "0px" },
+                      }}
+                      transition={{ duration: 0.5, ease: "circOut" }}
                     >
                       <div className="course_arrow_block relative overflow-hidden">
                         <motion.svg
-                          className="course_arrow_left"
+                          className="absolute"
                           xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
+                          viewBox="0 0 16 8"
                           fill="#aeaeae"
                           variants={{
                             initial: { x: "0%", opacity: 0 },
@@ -59,12 +105,16 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                           }}
                           transition={{ duration: 0.5, ease: "circOut" }}
                         >
-                          <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                          <path
+                            xmlns="http://www.w3.org/2000/svg"
+                            d="M15.3536 4.35355C15.5488 4.15829 15.5488 3.84171 15.3536 3.64645L12.1716 0.464466C11.9763 0.269204 11.6597 0.269204 11.4645 0.464466C11.2692 0.659728 11.2692 0.976311 11.4645 1.17157L14.2929 4L11.4645 6.82843C11.2692 7.02369 11.2692 7.34027 11.4645 7.53553C11.6597 7.7308 11.9763 7.7308 12.1716 7.53553L15.3536 4.35355ZM0 4.5L15 4.5V3.5L0 3.5L0 4.5Z"
+                            fill="#AEAEAE"
+                          />{" "}
                         </motion.svg>
                         <motion.svg
-                          className="course_arrow_left absolute"
+                          className="absolute"
                           xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
+                          viewBox="0 0 16 8"
                           fill="currentColor"
                           variants={{
                             initial: { x: "-100%", opacity: 0 },
@@ -72,13 +122,17 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                           }}
                           transition={{ duration: 0.5, ease: "circOut" }}
                         >
-                          <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                          <path
+                            xmlns="http://www.w3.org/2000/svg"
+                            d="M15.3536 4.35355C15.5488 4.15829 15.5488 3.84171 15.3536 3.64645L12.1716 0.464466C11.9763 0.269204 11.6597 0.269204 11.4645 0.464466C11.2692 0.659728 11.2692 0.976311 11.4645 1.17157L14.2929 4L11.4645 6.82843C11.2692 7.02369 11.2692 7.34027 11.4645 7.53553C11.6597 7.7308 11.9763 7.7308 12.1716 7.53553L15.3536 4.35355ZM0 4.5L15 4.5V3.5L0 3.5L0 4.5Z"
+                            fill="#currentColor"
+                          />{" "}
                         </motion.svg>
                       </div>
 
-                      <div className="course_button_text_container text-4xl 2xl:text-6xl relative text-center">
+                      <div className="course_button_text_container items-center text-course-heading leading-relaxed relative">
                         <motion.div
-                          className="left-0 w-full whitespace-nowrap overflow-hidden text-ellipsis"
+                          className="left-0 w-full whitespace-nowrap text-ellipsis text-white"
                           variants={{
                             initial: { y: "0%" },
                             hover: { y: "-100%" },
@@ -90,7 +144,7 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                         </motion.div>
 
                         <motion.div
-                          className="course_button_text_hover absolute left-0 w-full whitespace-nowrap overflow-hidden text-ellipsis"
+                          className="course_button_text_hover absolute left-0 w-full whitespace-nowrap text-ellipsis text-white"
                           variants={{
                             initial: { y: "100%" },
                             hover: { y: "0%" },
@@ -104,9 +158,9 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
 
                       <div className="course_arrow_block relative overflow-hidden">
                         <motion.svg
-                          className="course_arrow_right"
+                          className="absolute"
                           xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
+                          viewBox="0 0 16 8"
                           fill="#aeaeae"
                           variants={{
                             initial: { x: "0%", opacity: 0 },
@@ -114,13 +168,17 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                           }}
                           transition={{ duration: 0.5, ease: "circOut" }}
                         >
-                          <path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path>
+                          <path
+                            xmlns="http://www.w3.org/2000/svg"
+                            d="M0.646445 3.64645C0.451183 3.84171 0.451183 4.15829 0.646445 4.35355L3.82843 7.53553C4.02369 7.7308 4.34027 7.7308 4.53553 7.53553C4.73079 7.34027 4.73079 7.02369 4.53553 6.82843L1.70711 4L4.53553 1.17157C4.7308 0.97631 4.7308 0.659727 4.53553 0.464465C4.34027 0.269203 4.02369 0.269203 3.82843 0.464465L0.646445 3.64645ZM16 3.5L0.999999 3.5L0.999999 4.5L16 4.5L16 3.5Z"
+                            fill="#AEAEAE"
+                          />{" "}
                         </motion.svg>
 
                         <motion.svg
-                          className="course_arrow_right absolute"
+                          className="absolute"
                           xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
+                          viewBox="0 0 16 8"
                           fill="currentColor"
                           variants={{
                             initial: { x: "100%", opacity: 0 },
@@ -128,18 +186,22 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                           }}
                           transition={{ duration: 0.5, ease: "circOut" }}
                         >
-                          <path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path>
+                          <path
+                            xmlns="http://www.w3.org/2000/svg"
+                            d="M0.646445 3.64645C0.451183 3.84171 0.451183 4.15829 0.646445 4.35355L3.82843 7.53553C4.02369 7.7308 4.34027 7.7308 4.53553 7.53553C4.73079 7.34027 4.73079 7.02369 4.53553 6.82843L1.70711 4L4.53553 1.17157C4.7308 0.97631 4.7308 0.659727 4.53553 0.464465C4.34027 0.269203 4.02369 0.269203 3.82843 0.464465L0.646445 3.64645ZM16 3.5L0.999999 3.5L0.999999 4.5L16 4.5L16 3.5Z"
+                            fill="#currentColor"
+                          />{" "}
                         </motion.svg>
                       </div>
                     </motion.button>
                   </Link>
-                </div>
+                </motion.div>
               );
             })}
           </div>
         </div>
       </div>
-      <div className="section_container_sml w-full absolute  z-10 inset-x-0 bottom-0">
+      <div className="section_container_sml w-full absolute z-10 inset-x-0 bottom-0">
         <ul className="w-full flex justify-between">
           {navMenuFooter.main.map((item) => (
             <li key={item.title}>

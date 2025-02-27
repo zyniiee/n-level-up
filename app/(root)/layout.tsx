@@ -12,7 +12,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <div className="mx-auto">
         <CourseProvider>
           <Header />
-          <div className="">{children}</div>
+          <div className="flex flex-col items-center">{children}</div>
           <FooterSection footer={footerData} />
         </CourseProvider>
       </div>

@@ -59,6 +59,11 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ reviews }) => {
         waitForTransition: false,
         updateOnMove: true,
         trimSpace: true,
+        grid: {
+          rows: 1,
+          cols: 1,
+          gap: { row: "1rem", col: "1rem" },
+        },
         breakpoints: {
           1280: {
             perPage: 4,
@@ -131,7 +136,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ reviews }) => {
   return (
     <motion.section
       ref={sectionRef}
-      className="w-full xl:pt-[15rem] pt-20 md:pl-[10vw] pl-[2rem] overflow-x-auto"
+      className="w-full xl:pt-[15rem] pt-20 pl-[6rem] overflow-x-auto"
       variants={containerVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
@@ -141,7 +146,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ reviews }) => {
       </motion.h2>
 
       <div ref={splideRef} className="splide relative slider1">
-        <div className="splide__track w-full relative z-0 overflow-visible pr-2rem">
+        <div className="splide__track h-full w-full relative z-0 overflow-visible pr-2rem">
           <div className="splide__list flex">
             {reviews.map((review, index) => (
               <motion.div
@@ -150,26 +155,29 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ reviews }) => {
                 variants={cardVariants}
                 custom={index}
               >
-                <div className="flex flex-col whitespace-normal gap-y-6 ">
-                  <div className="flex gap-x-4">
-                    <div className="review_card_image relative w-16 h-16">
-                      <Image
-                        src={review.mainImage}
-                        alt={review.student_name}
-                        fill
-                        className="rounded-full object-cover"
-                        sizes="(max-width: 768px) 64px, 64px"
-                      />
+                <div className="flex flex-col justify-between  whitespace-normal gap-y-6 ">
+                  <div className="gap-5 flex flex-col flex-grow">
+                    <div className="flex gap-x-4">
+                      <div className="review_card_image relative w-16 h-16">
+                        <Image
+                          src={review.mainImage}
+                          alt={review.student_name}
+                          fill
+                          className="rounded-full object-cover"
+                          sizes="(max-width: 768px) 64px, 64px"
+                        />
+                      </div>
+                      <div>
+                        <p className="page_text_small">
+                          {review.student_name} <span>đề xuất</span>
+                        </p>
+                        <p className="page_text_small">{review.suggest}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="page_text_small">
-                        {review.student_name} <span>đề xuất</span>
-                      </p>
-                      <p className="page_text_small">{review.suggest}</p>
-                    </div>
+                    <p className="font-semibold">{review.quote}</p>
                   </div>
-                  <p className="font-semibold">{review.quote}</p>
-                  <div className="relative h-5 w-[100px]">
+                  <div className="h-[2rem]"></div>
+                  <div className="absolute bottom-[2rem] h-5 w-[100px] -m-[2px] mt-auto">
                     <Image
                       src="/images/5-star.svg"
                       alt="5 star review"

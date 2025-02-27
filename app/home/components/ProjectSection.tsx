@@ -153,10 +153,10 @@ const Project = () => {
     <>
       <section
         ref={sectionRef}
-        className="section_container xl:grid grid-cols-3 gap-8 xl:mt-0 mt-20"
+        className="section_container xl:grid grid-cols-3 gap-8 xl:mt-0 mt-20 w-full"
       >
         <div className="flex xl:flex-col justify-between items-center md:items-start col-span-1 xl:pb-0 pb-8">
-          <p className="text-md inline-block sticky top-32">
+          <p className="text-md inline-block sticky mb-[40vh] top-32 bottom-[50%]">
             <span className="uppercase font-bold">Level up </span>- Art & Design
             Courses
           </p>

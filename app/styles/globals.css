@@ -9,7 +9,8 @@
 }
 * {
   margin: 0;
-  cursor: none !important;
+  /* cursor: none !important; */
+  scroll-behavior: smooth;
 }
 
 body {
@@ -27,6 +28,14 @@ body {
   --foreground: #fdfdfd;
   --secondary: #aeaeae;
   --font-montserrat: "Montserrat", sans-serif;
+  --hero-heading: 15.529rem;
+  --about-heading: 2rem;
+  --scroll-heading: 9.143rem;
+  --course-heading: 2.25rem;
+  --review-subtitle: 0.786rem;
+  --blog-heading: 2.857rem;
+  --footer-subheading: 4.571rem;
+  --footer-scrolltext: 23.357rem;
 }
 
 a {
@@ -43,21 +52,26 @@ a {
   display: none; /* Safari and Chrome aeaeae */
 }
 
-.page_container {
+.page-container {
   position: relative;
   max-width: 1440px;
   margin: 0 auto;
 }
 .section_container {
-  padding: 15rem 10vw 0rem 10vw;
+  padding: 8rem 6rem 0rem 6rem;
 }
 
 .section_container_sml {
-  padding: 2rem 10vw;
+  padding: 2rem 6rem;
+}
+
+.section_container.about_section {
+  padding: 8rem 6rem 0rem 6rem;
 }
 @media screen and (max-width: 48rem) {
   .section_container,
-  .section_container_sml {
+  .section_container_sml,
+  .section_container.about_section {
     padding: 2rem;
   }
 }
@@ -65,9 +79,13 @@ a {
   padding: 8rem 0;
 }
 .nav {
+  width: 100%;
+  max-width: 1440px;
   background: rgba(5, 5, 5, 0.051);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  left: 50%;
+  transform: translateX(-50%);
 }
 /*HOME*/
 .hero_text {
@@ -86,10 +104,6 @@ a {
 }
 .page_about_subHeading {
   color: var(--secondary);
-}
-
-.page_course_heading {
-  line-height: 120%;
 }
 
 .page_course_heading:hover {
@@ -115,11 +129,11 @@ a {
   border-radius: 10px;
   aspect-ratio: 273 / 362;
   align-content: end;
-  width: calc(100vw / 6);
+  width: calc(100vw / 5);
 }
 @media screen and (max-width: 80rem) {
   .team_member {
-    width: calc(100vw / 5);
+    width: calc(100vw / 4);
   }
 }
 @media screen and (max-width: 48rem) {
@@ -139,7 +153,7 @@ a {
   z-index: -1;
 }
 .team_details {
-  padding: 1rem;
+  padding: 1rem 1.5rem;
 }
 .team_details p {
   color: var(--secondary);
@@ -285,14 +299,15 @@ a {
   height: 100vh;
 }
 .circle_image_block {
-  width: 18rem;
-  height: 18rem;
+  width: 15.211rem;
+  height: 15.211rem;
 }
 .circle_item {
-  width: 18rem;
-  height: 18rem;
+  width: 15.211rem;
+  height: 15.211rem;
   border-radius: 100%;
   transform: rotate(0deg);
+  border-radius: 10px;
 }
 .circle_item._01 {
   z-index: 6;
@@ -318,8 +333,10 @@ a {
   transform: rotate(-300deg);
 }
 .circle_image_wrapper {
-  width: 18rem;
-  height: 18rem;
+  width: 15.211rem;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 15.211rem;
   inset: -100% auto auto;
 }
 @media screen and (max-width: 48rem) {
@@ -358,6 +375,10 @@ a {
   z-index: 10;
   inset: 0%;
 }
+.video_section {
+  width: 80%;
+  aspect-ratio: 873 / 488;
+}
 
 /* Nav Menu*/
 .nav_menu_course {
@@ -366,11 +387,6 @@ a {
 
 .backgound_nav {
   transition: transform 0.3s ease;
-}
-
-.course_button {
-  background: transparent;
-  display: inline-flex;
 }
 
 .page_course_heading::before {
@@ -402,15 +418,25 @@ a {
 .page_course_heading:hover::after {
   width: 100%;
 }
-.page_course_heading:hover .course_button {
-  transform: translateX(1rem);
+.course_button {
+  background: transparent;
+  height: 70px;
 }
+/* .page_course_heading:hover .course_button {
+  transform: translateX(1rem);
+} */
 .course_button_text_container {
   display: flex;
   flex-direction: column;
-  margin-top: -4px;
-  line-height: 1.25;
+  position: relative;
+  height: auto;
   overflow: hidden;
+}
+
+.course_button_text_container div {
+  min-height: var(--course-heading);
+  display: flex;
+  align-items: center;
 }
 
 .course_button_text_hover {
@@ -419,7 +445,36 @@ a {
 
 .course_arrow_block {
   width: 1rem;
-  height: 1rem;
+  height: 8px;
   display: flex;
-  margin-top: 8px;
+}
+.course_image_cover {
+  width: 85%;
+  aspect-ratio: 508/294;
+  border-radius: 20px;
+}
+.splide__list {
+  display: flex;
+  align-items: stretch; /* Stretch all items to match the tallest */
+}
+
+.review_card {
+  height: auto; /* Let it grow naturally */
+  display: flex;
+  flex-direction: column;
+}
+
+.span {
+  display: inline;
+  text-decoration: none;
+  background-image: linear-gradient(gray, white);
+  background-repeat: no-repeat;
+  background-position: bottom left;
+  background-size: 0% 2px;
+  transition: background-size 500ms ease;
+}
+
+.span:hover {
+  background-size: 100% 2px;
+  color: inherit;
 }

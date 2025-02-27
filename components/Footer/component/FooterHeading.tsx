@@ -6,11 +6,12 @@ import styles from "../footer.module.css";
 const FooterHeading = () => {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const { scrollYProgress } = useScroll();
-  const x = useTransform(scrollYProgress, [0, 1], ["-60vw", "-1vw"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["-60vw", "-2vw"]);
 
   return (
     <motion.h2
-      className={`${styles.footer_heading}`}
+      className="text-footer-scrolltext whitespace-nowrap leading-none
+"
       ref={headingRef}
       style={{ x }}
     >

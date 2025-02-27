@@ -58,7 +58,7 @@ const Team = () => {
   };
 
   return (
-    <section className="section_container flex justify-center xl:mt-0 mt-20">
+    <section className="section_container flex justify-center my-32 ">
       <motion.div
         ref={containerRef}
         className="grid grid-cols-3 xl:gap-8 gap-4"
@@ -69,7 +69,7 @@ const Team = () => {
         {team.map((member, index) => (
           <motion.div
             key={member.id}
-            className="team_member"
+            className="team_member 2xl:w-auto"
             variants={itemVariants}
             custom={index}
           >

@@ -9,10 +9,10 @@ import FooterSocial from "./component/FooterSocial";
 
 const FooterSection = ({ footer }: { footer: Footer }) => {
   return (
-    <footer className="flex flex-col overflow-hidden  xl:mt-0  mt-20">
+    <footer className="flex flex-col overflow-hidden xl:mt-0  mt-20">
       <FooterAbout about={footer.about} />
       <FooterHeading />
-      <div className="section_container flex lg:justify-between lg:flex-row flex-col lg:items-end items-start gap-8 lg:gap-0">
+      <div className="section_container overflow-hidden flex lg:justify-between lg:flex-row flex-col lg:items-end items-start gap-8 lg:gap-0">
         <FooterLinks footer={footer} />
         <FooterSocial socialMedia={footer.social_media} />
       </div>

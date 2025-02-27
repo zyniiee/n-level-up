@@ -15,37 +15,45 @@ const AboutSection = () => {
 
   const movingUpSection = useTransform(
     scrollYProgress,
-    [0, 0.4, 1],
-    ["5vw", "-2vw", "-5vw"]
+    [0, 0.6, 0.8, 1],
+    ["10%", "6%", "2%", "0%"]
   );
 
   const smoothMove = useSpring(movingUpSection, {
-    stiffness: 90,
-    damping: 20,
-    mass: 0.5,
+    stiffness: 65,
+    damping: 25,
+    mass: 1,
+    restDelta: 0.001,
   });
 
-  const opacityChange = useTransform(scrollYProgress, [0, 0.5], [0.3, 1]);
+  const headingOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.5],
+    [0.3, 0.7, 1]
+  );
 
-  const smoothOpacity = useSpring(opacityChange, {
-    stiffness: 70,
-    damping: 15,
+  const smoothHeadingOpacity = useSpring(headingOpacity, {
+    stiffness: 60,
+    damping: 20,
+    restDelta: 0.01,
   });
 
   return (
     <motion.section
       ref={sectionRef}
-      style={{
-        y: smoothMove,
-        opacity: smoothOpacity,
-      }}
-      className="xl:grid grid-cols-5 gap-4 section_container flex"
+      className="xl:grid grid-cols-5 gap-4 section_container about_section flex overflow-hidden"
     >
       <div className="xl:col-span-2 block-hidden"></div>
       <div className="xl:col-span-3">
-        <h2 className="page_about_heading xl:pt-0 pt-20 xl:text-[32px] 2xl:text-[2vw] text-2xl">
+        <motion.h2
+          className="page_about_heading xl:pt-0 text-about-heading"
+          style={{
+            y: smoothMove,
+            opacity: smoothHeadingOpacity,
+          }}
+        >
           {heading}
-        </h2>
+        </motion.h2>
         <p className="page_about_subHeading pt-10 pb-10">{sub_heading}</p>
         <Button text={cta} href="/about" />
       </div>

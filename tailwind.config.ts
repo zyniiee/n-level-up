@@ -13,17 +13,22 @@ export default {
         secondary: "var(--secondary)",
         background: "(var(--background))",
         foreground: "(var(--foreground))",
-
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        chart: {
-          "1": "hsl(var(--chart-1))",
-          "2": "hsl(var(--chart-2))",
-          "3": "hsl(var(--chart-3))",
-          "4": "hsl(var(--chart-4))",
-          "5": "hsl(var(--chart-5))",
-        },
+      },
+      fontFamily: {
+        montserrat: "var(--font-montserrat)",
+      },
+      fontSize: {
+        "hero-heading": "var(--hero-heading)",
+        "about-heading": "var(--about-heading)",
+        "scroll-heading": "var(--scroll-heading)",
+        "course-heading": "var(--course-heading)",
+        "review-subtitle": "var(--review-subtitle)",
+        "blog-heading": "var(--blog-heading)",
+        "footer-subheading": "var(--footer-subheading)",
+        "footer-scrolltext": "var(--footer-scrolltext)",
       },
       borderRadius: {
         lg: "var(--radius)",
