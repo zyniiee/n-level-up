@@ -1,4 +1,3 @@
-// 1. Create a new file: src/context/CourseContext.tsx
 import {
   createContext,
   useContext,
@@ -6,10 +5,10 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-import { NotionCourses } from "@/types";
+import { NotionCourse } from "@/types";
 
 interface CourseContextType {
-  courses: NotionCourses[];
+  courses: NotionCourse[];
   isLoading: boolean;
   error: string | null;
 }
@@ -21,7 +20,7 @@ const CourseContext = createContext<CourseContextType>({
 });
 
 export const CourseProvider = ({ children }: { children: ReactNode }) => {
-  const [courses, setCourses] = useState<NotionCourses[]>([]);
+  const [courses, setCourses] = useState<NotionCourse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

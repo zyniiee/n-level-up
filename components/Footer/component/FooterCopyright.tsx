@@ -3,7 +3,7 @@ import styles from "../footer.module.css";
 
 const FooterCopyright = () => {
   return (
-    <div className={`${styles.copyright} mt-16`}>
+    <div className={`${styles.copyright} mt-16 w-full`}>
       <p>Copyright © 2025 LEVEL UP AGENCY</p>
     </div>
   );

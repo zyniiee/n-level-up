@@ -54,14 +54,16 @@ a {
 
 .page-container {
   position: relative;
-  max-width: 1440px;
+  /*max-width: 1440px;*/
   margin: 0 auto;
 }
 .section_container {
+  max-width: 1440px;
   padding: 8rem 6rem 0rem 6rem;
 }
 
 .section_container_sml {
+  max-width: 1440px;
   padding: 2rem 6rem;
 }
 
@@ -280,11 +282,14 @@ a {
   align-items: center;
   justify-content: center;
 }
+.project_text_scroll {
+  z-index: 1;
+}
 
 .projects_container img {
   width: 40%;
   height: auto;
-  aspect-ratio: 412/360;
+  aspect-ratio: 1/1;
   border-radius: 10px;
   transition: transform 0.1s ease-out;
   object-fit: cover;
@@ -478,3 +483,5 @@ a {
   background-size: 100% 2px;
   color: inherit;
 }
+
+/* Lottie */

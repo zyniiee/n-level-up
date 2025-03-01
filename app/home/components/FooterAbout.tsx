@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Footer } from "@/types";
-import styles from "../footer.module.css";
+import styles from "../../../components/Footer/footer.module.css";
 
 const FooterAbout = ({ about }: { about: Footer["about"] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);

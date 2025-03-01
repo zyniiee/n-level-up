@@ -1,12 +1,12 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
-import { NotionBlog } from "@/types";
+import { NotionBlogPost } from "@/types";
 import Button from "@/components/ui/Button/button";
 import Link from "next/link";
 
 const BlogSection = () => {
-  const [featuredPosts, setFeaturedPosts] = useState<NotionBlog[]>([]);
+  const [featuredPosts, setFeaturedPosts] = useState<NotionBlogPost[]>([]);
   const [hoveredPostId, setHoveredPostId] = useState<string | null>(null);
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.1 });
@@ -92,7 +92,7 @@ const BlogSection = () => {
               const mainImage = post.properties["main-image"]?.url || "";
               const slug =
                 post.properties.Slug?.rich_text?.[0]?.plain_text || "";
-              const postUrl = `${href}/${slug}`;
+              const postUrl = `blog-page/${slug}`;
 
               return (
                 <motion.div
@@ -111,21 +111,21 @@ const BlogSection = () => {
                     className="block w-full h-full absolute top-0 left-0 z-10"
                   >
                     <span className="sr-only">
-                      {post.properties.Name?.title?.[0]?.text?.content ||
+                      {post.properties.Name?.title?.[0]?.plain_text ||
                         "Xem chi tiết"}
                     </span>
                   </Link>
                   <img
                     src={mainImage}
                     alt={
-                      post.properties.Name?.title?.[0]?.text?.content ||
+                      post.properties.Name?.title?.[0]?.plain_text ||
                       "Blog Post"
                     }
                     className="blog_post_image"
                   />
                   <div className="blog_post_detail">
                     <h5 className="blog_post_heading pb-4">
-                      {post.properties.Name?.title?.[0]?.text?.content ||
+                      {post.properties.Name?.title?.[0]?.plain_text ||
                         "Untitled"}
                     </h5>
                     <div className="relative z-20 pointer-events-auto">

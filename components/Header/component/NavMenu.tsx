@@ -139,7 +139,7 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                           }}
                           transition={{ duration: 0.5, ease: "circOut" }}
                         >
-                          {course.properties.Name?.title?.[0]?.text?.content ||
+                          {course.properties.Name?.title?.[0]?.plain_text ||
                             "Untitled Course"}
                         </motion.div>
 
@@ -151,7 +151,7 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                           }}
                           transition={{ duration: 0.5, ease: "circOut" }}
                         >
-                          {course.properties.Name?.title?.[0]?.text?.content ||
+                          {course.properties.Name?.title?.[0]?.plain_text ||
                             "Untitled Course"}
                         </motion.div>
                       </div>
@@ -201,7 +201,7 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
           </div>
         </div>
       </div>
-      <div className="section_container_sml w-full absolute z-10 inset-x-0 bottom-0">
+      <div className="section_container_sml m-auto w-full absolute z-10 inset-x-0 bottom-0">
         <ul className="w-full flex justify-between">
           {navMenuFooter.main.map((item) => (
             <li key={item.title}>

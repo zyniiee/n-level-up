@@ -14,7 +14,7 @@ const GocNhinSection = () => {
 
   const title = "Knowledge We Give, Value You Get";
   const cta = "Xem chi tiết";
-  const href = "/gocnhin";
+  const href = "/goc-nhin";
 
   useEffect(() => {
     fetch("/api/gocnhin")
@@ -92,7 +92,7 @@ const GocNhinSection = () => {
               const mainImage = post.properties["main-image"]?.url || "";
               const slug =
                 post.properties.Slug?.rich_text?.[0]?.plain_text || "";
-              const postUrl = `${href}/${slug}`;
+              const postUrl = `blog/${slug}`;
 
               return (
                 <motion.div
@@ -111,21 +111,21 @@ const GocNhinSection = () => {
                     className="block w-full h-full absolute top-0 left-0 z-10"
                   >
                     <span className="sr-only">
-                      {post.properties.Name?.title?.[0]?.text?.content ||
+                      {post.properties.Name?.title?.[0]?.plain_text ||
                         "Xem chi tiết"}
                     </span>
                   </Link>
                   <img
                     src={mainImage}
                     alt={
-                      post.properties.Name?.title?.[0]?.text?.content ||
+                      post.properties.Name?.title?.[0]?.plain_text ||
                       "Blog Post"
                     }
                     className="blog_post_image"
                   />
                   <div className="blog_post_detail">
                     <h5 className="blog_post_heading pb-4">
-                      {post.properties.Name?.title?.[0]?.text?.content ||
+                      {post.properties.Name?.title?.[0]?.plain_text ||
                         "Untitled"}
                     </h5>
                     <div className="relative z-20 pointer-events-auto">

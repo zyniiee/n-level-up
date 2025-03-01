@@ -161,7 +161,7 @@ const CoursesList = () => {
                         }}
                         transition={{ duration: 0.5, ease: "circOut" }}
                       >
-                        {course.properties.Name?.title?.[0]?.text?.content ||
+                        {course.properties.Name?.title?.[0]?.plain_text ||
                           "Untitled Course"}
                       </motion.div>
 
@@ -173,7 +173,7 @@ const CoursesList = () => {
                         }}
                         transition={{ duration: 0.5, ease: "circOut" }}
                       >
-                        {course.properties.Name?.title?.[0]?.text?.content ||
+                        {course.properties.Name?.title?.[0]?.plain_text ||
                           "Untitled Course"}
                       </motion.div>
                     </div>

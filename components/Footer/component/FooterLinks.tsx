@@ -20,7 +20,7 @@ const FooterLinks = ({ footer }: { footer: Footer }) => {
               <li key={course.id} className="gap-4">
                 <SecondaryButton
                   text={
-                    course.properties.Name?.title?.[0]?.text?.content ||
+                    course.properties.Name?.title?.[0]?.plain_text ||
                     "Untitled Course"
                   }
                   href={`${href}/${slug}`}

@@ -136,7 +136,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ reviews }) => {
   return (
     <motion.section
       ref={sectionRef}
-      className="w-full xl:pt-[15rem] pt-20 pl-[6rem] overflow-x-auto"
+      className="w-full max-w-[1440px] xl:pt-[15rem] pt-20 pl-[6rem] overflow-x-auto"
       variants={containerVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}

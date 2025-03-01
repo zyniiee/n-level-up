@@ -1,10 +1,11 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import Button from "@/components/ui/Button/button";
-import { NotionGalleries } from "@/types";
+import { NotionGallery } from "@/types";
+import ProjectTextScroll from "./ProjectTextScroll";
 
-const ProjectItem = ({ project }: { project: NotionGalleries }) => {
+// Interactive component for each project item with mouse animations
+const ProjectItem = ({ project }: { project: NotionGallery }) => {
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
   const containerRef = useRef<HTMLDivElement>(null);
   const mainImage = project.properties["main-image"]?.url || "";
@@ -99,6 +100,7 @@ const ProjectItem = ({ project }: { project: NotionGalleries }) => {
           perspective: "1000px",
         }}
       >
+        {/* Background blur effect */}
         <div
           className="projects_cover absolute inset-0"
           style={{
@@ -107,9 +109,11 @@ const ProjectItem = ({ project }: { project: NotionGalleries }) => {
           }}
         />
 
+        {/* Main image with 3D animation */}
         <img
           src={mainImage}
-          className="relative z-10 w-full h-full object-cover project-thumbnail-block"
+          alt={project.properties.Name?.title[0]?.plain_text || "Project image"}
+          className="relative w-full h-full object-cover project-thumbnail-block"
           style={{
             transform: `
               translateX(${xMovement}vw)
@@ -122,55 +126,21 @@ const ProjectItem = ({ project }: { project: NotionGalleries }) => {
           }}
         />
 
+        {/* Dark overlay */}
         <div
           className="projects_cover absolute inset-0"
           style={{
-            backgroundColor: "#0c0c0ca6",
+            backgroundColor: "#0c0c0ca8",
           }}
         />
+
+        {/* Text scroll positioned in the middle over the image */}
+        <div className="project_text_scroll absolute inset-0 flex items-center justify-center  pointer-events-none">
+          <ProjectTextScroll />
+        </div>
       </motion.div>
     </div>
   );
 };
-const Project = () => {
-  const [featuredProject, setFeaturedProject] = useState<NotionGalleries[]>([]);
-  const [showFixedHeader, setShowFixedHeader] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  const originalTextRef = useRef<HTMLParagraphElement>(null);
-  const parentContainerRef = useRef<HTMLDivElement>(null);
-  const href = "/gallery";
 
-  useEffect(() => {
-    fetch("/api/gallery")
-      .then((res) => res.json())
-      .then((data) => {
-        setFeaturedProject(data.featured);
-      })
-      .catch((err) => console.error("Fetch error:", err));
-  }, []);
-
-  return (
-    <>
-      <section
-        ref={sectionRef}
-        className="section_container xl:grid grid-cols-3 gap-8 xl:mt-0 mt-20 w-full"
-      >
-        <div className="flex xl:flex-col justify-between items-center md:items-start col-span-1 xl:pb-0 pb-8">
-          <p className="text-md inline-block sticky mb-[40vh] top-32 bottom-[50%]">
-            <span className="uppercase font-bold">Level up </span>- Art & Design
-            Courses
-          </p>
-          <Button text="Xem chi tiết" href={href} />
-        </div>
-
-        <div className="col-span-2 gap-8 flex flex-col">
-          {featuredProject.slice(0, 3).map((project) => (
-            <ProjectItem key={project.id} project={project} />
-          ))}
-        </div>
-      </section>
-    </>
-  );
-};
-
-export default Project;
+export default ProjectItem;

@@ -26,7 +26,7 @@ const HeaderImage: React.FC = () => {
   useEffect(() => {
     setIsStarted(true);
 
-    setTimeout(() => setShowSatellites(true), 3000);
+    setTimeout(() => setShowSatellites(true), 2500);
 
     setTimeout(() => setStartImageToggle(true), 9930);
 
@@ -106,14 +106,14 @@ const HeaderImage: React.FC = () => {
         {[2, 3, 4, 5, 6].map((num) => (
           <div
             key={num}
-            className={`circle_item _0${num} absolute rounded-full perspective-1000 transition-all duration-700 
+            className={`circle_item _0${num} absolute rounded-full perspective-1000 transition-all duration-500 
               ${showSatellites ? "opacity-100" : "opacity-0"}`}
             style={{
               zIndex: 1,
               display: showSatellites ? "block" : "none",
               transformOrigin: "center center",
               animation: showSatellites
-                ? `satelliteAndRotate${num} 6s cubic-bezier(0.33, 1, 0.68, 1) forwards`
+                ? `satelliteAndRotate${num} 5s cubic-bezier(0.33, 1, 0.68, 1) forwards`
                 : "none",
             }}
           >
@@ -146,14 +146,14 @@ const HeaderImage: React.FC = () => {
           26.1% {
             transform: translateY(0) rotate3d(0, 1, 0, 360deg);
           }
-          34.4%,
-          50% {
+          26.2%,
+          35% {
             transform: rotate(0deg);
           }
-          80% {
+          60% {
             transform: rotate(-180deg);
           }
-          90% {
+          71% {
             transform: rotate3d(1, 1, 0, -90deg) translateY(110%) scale(1);
           }
           100% {
@@ -169,15 +169,15 @@ const HeaderImage: React.FC = () => {
           1% {
             opacity: 1;
           }
-          30% {
+          26% {
             transform: rotateZ(-60deg);
             opacity: 1;
           }
-          60% {
+          50% {
             transform: rotateZ(-180deg) translateY(0);
             opacity: 1;
           }
-          60.05% {
+          50.05% {
             transform: rotateZ(-180deg) translateY(0);
             opacity: 0;
           }
@@ -195,15 +195,15 @@ const HeaderImage: React.FC = () => {
           10% {
             opacity: 1;
           }
-          32% {
+          28% {
             transform: rotateZ(-120deg);
             opacity: 1;
           }
-          60% {
+          50% {
             transform: rotateZ(-180deg) translateY(0);
             opacity: 1;
           }
-          60.05% {
+          50.05% {
             transform: rotateZ(-180deg) translateY(0);
             opacity: 0;
           }
@@ -225,11 +225,11 @@ const HeaderImage: React.FC = () => {
             transform: rotateZ(180deg);
             opacity: 1;
           }
-          60% {
+          50% {
             transform: rotateZ(180deg) translateY(0);
             opacity: 1;
           }
-          60.05% {
+          50.05% {
             transform: rotateZ(180deg) translateY(0);
             opacity: 0;
           }
@@ -251,11 +251,11 @@ const HeaderImage: React.FC = () => {
             transform: rotateZ(120deg);
             opacity: 1;
           }
-          60% {
+          50% {
             transform: rotateZ(180deg) translateY(0);
             opacity: 1;
           }
-          60.05% {
+          50.05% {
             transform: rotateZ(180deg) translateY(0);
             opacity: 0;
           }
@@ -277,11 +277,11 @@ const HeaderImage: React.FC = () => {
             transform: rotateZ(60deg);
             opacity: 1;
           }
-          80% {
+          70% {
             transform: rotateZ(180deg) translateY(0);
             opacity: 1;
           }
-          80.05% {
+          70.05% {
             transform: rotateZ(180deg) translateY(0);
             opacity: 0;
           }
