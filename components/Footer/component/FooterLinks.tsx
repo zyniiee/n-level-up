@@ -8,7 +8,7 @@ const FooterLinks = ({ footer }: { footer: Footer }) => {
   const href = "/courses";
 
   return (
-    <div className="flex lg:flex-row flex-col justify-center gap-8 lg:gap-16">
+    <div className="flex lg:flex-row flex-col justify-center gap-8 lg:gap-16 pt-28 pb-10">
       {/* Courses Section */}
       <div className="footer-section">
         <h4 className="uppercase font-bold pb-4">Courses</h4>
