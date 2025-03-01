@@ -6,7 +6,7 @@ import styles from "../footer.module.css";
 const FooterHeading = () => {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const { scrollYProgress } = useScroll();
-  const x = useTransform(scrollYProgress, [0, 1], ["-60vw", "-5vw"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["-60rem", "-10rem"]);
 
   return (
     <motion.h2

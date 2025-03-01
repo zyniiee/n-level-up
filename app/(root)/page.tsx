@@ -11,8 +11,8 @@ import { home, footerData } from "@/constants";
 import CoursesList from "../home/components/CoursesList";
 import BlogSection from "../home/components/BlogSection";
 import GocNhinSection from "../home/components/GocNhinSection";
-import FooterAbout from "../../app/home/components/FooterAbout";
 import Project from "@/components/Project";
+import FooterAbout from "../home/components/FooterAbout";
 
 const Home = () => {
   return (
@@ -28,6 +28,7 @@ const Home = () => {
       <ReviewSection reviews={home[0].reviews} />
       <BlogSection />
       <GocNhinSection />
+      <FooterAbout about={footerData.about} />
     </>
   );
 };
