@@ -6,7 +6,7 @@ const ProjectTextScroll = () => {
 
   // Text content
   const textSnippet = (
-    <span className="mx-4 text-5xl inline-block">
+    <span className="mx-4 text-2xl inline-block">
       <span className="uppercase font-bold">Level up </span>- Art & Design
       Courses
     </span>

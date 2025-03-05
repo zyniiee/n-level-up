@@ -178,6 +178,11 @@ export interface NotionCourse {
     "Buổi 8"?: NotionRichTextProperty;
     "Thông Tin Buổi 8"?: NotionRichTextProperty;
   };
+}a
+
+export interface CoursesDataResult {
+  allCourses?: NotionCourse[];
+  error?: string;
 }
 
 // Goc Nhin type

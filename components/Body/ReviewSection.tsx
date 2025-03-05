@@ -40,30 +40,19 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ reviews }) => {
     };
   }, []);
 
-  // Initialize Splide carousel
   useEffect(() => {
     if (splideRef.current) {
       const splide = new SplideType(splideRef.current, {
         type: "slide",
         perPage: 5,
         perMove: 1,
-        focus: 0,
         gap: "1rem",
-        speed: 600,
-        arrows: false,
-        pagination: false,
-        dragAngleThreshold: 60,
+        drag: "free",
         autoWidth: false,
-        rewind: false,
-        rewindSpeed: 400,
-        waitForTransition: false,
-        updateOnMove: true,
-        trimSpace: true,
-        grid: {
-          rows: 1,
-          cols: 1,
-          gap: { row: "1rem", col: "1rem" },
-        },
+        pagination: false,
+        focus: "center",
+        rewind: true,
+
         breakpoints: {
           1280: {
             perPage: 4,
@@ -77,7 +66,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ reviews }) => {
             gap: "1rem",
           },
           479: {
-            perPage: 2,
+            perPage: 1,
             gap: "1rem",
           },
         },
@@ -89,9 +78,8 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ reviews }) => {
         splide.destroy();
       };
     }
-  }, []);
+  }, [reviews.length]);
 
-  // Animation variants
   const containerVariants = {
     hidden: {},
     visible: {
@@ -134,65 +122,66 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ reviews }) => {
   };
 
   return (
-    <motion.section
-      ref={sectionRef}
-      className="w-full max-w-[1440px] xl:pt-[15rem] pt-20 pl-[6rem] overflow-x-auto"
-      variants={containerVariants}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-    >
-      <motion.h2 className="mb-12 text-3xl font-bold" variants={titleVariants}>
-        Học viên chia sẻ
-      </motion.h2>
-
-      <div ref={splideRef} className="splide relative slider1">
-        <div className="splide__track h-full w-full relative z-0 overflow-visible pr-2rem">
-          <div className="splide__list flex">
-            {reviews.map((review, index) => (
-              <motion.div
-                key={review.id}
-                className="splide__slide review_card"
-                variants={cardVariants}
-                custom={index}
-              >
-                <div className="flex flex-col justify-between  whitespace-normal gap-y-6 ">
-                  <div className="gap-5 flex flex-col flex-grow">
-                    <div className="flex gap-x-4">
-                      <div className="review_card_image relative w-16 h-16">
-                        <Image
-                          src={review.mainImage}
-                          alt={review.student_name}
-                          fill
-                          className="rounded-full object-cover"
-                          sizes="(max-width: 768px) 64px, 64px"
-                        />
+    <div className="w-full overflow-hidden flex justify-center">
+      <motion.section
+        ref={sectionRef}
+        className="w-full max-w-[1440px] xl:pt-[15rem] pt-20 pl-[6rem] "
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+      >
+        <div
+          ref={splideRef}
+          className="splide pr-10rem w-full relative slider1"
+        >
+          <div className="splide__track h-full w-full relative z-0  pr-2rem">
+            <div className="splide__list flex items-start">
+              {reviews.map((review, index) => (
+                <motion.div
+                  key={review.id}
+                  className="splide__slide review_card"
+                  variants={cardVariants}
+                  custom={index}
+                >
+                  <div className="flex flex-col justify-between  whitespace-normal gap-y-6 ">
+                    <div className="gap-5 flex flex-col flex-grow">
+                      <div className="flex gap-x-4">
+                        <div className="review_card_image relative w-16 h-16">
+                          <Image
+                            src={review.mainImage}
+                            alt={review.student_name}
+                            fill
+                            className="rounded-full object-cover"
+                            sizes="(max-width: 768px) 64px, 64px"
+                          />
+                        </div>
+                        <div>
+                          <p className="page_text_small">
+                            {review.student_name} <span>đề xuất</span>
+                          </p>
+                          <p className="page_text_small">{review.suggest}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="page_text_small">
-                          {review.student_name} <span>đề xuất</span>
-                        </p>
-                        <p className="page_text_small">{review.suggest}</p>
-                      </div>
+                      <p className="font-semibold">{review.quote}</p>
                     </div>
-                    <p className="font-semibold">{review.quote}</p>
+                    <div className="h-[2rem]"></div>
+                    <div className="absolute bottom-[2rem] h-5 w-[100px] -m-[2px] mt-auto">
+                      <Image
+                        src="/images/5-star.svg"
+                        alt="5 star review"
+                        fill
+                        className="object-contain"
+                        sizes="100px"
+                      />
+                    </div>
                   </div>
-                  <div className="h-[2rem]"></div>
-                  <div className="absolute bottom-[2rem] h-5 w-[100px] -m-[2px] mt-auto">
-                    <Image
-                      src="/images/5-star.svg"
-                      alt="5 star review"
-                      fill
-                      className="object-contain"
-                      sizes="100px"
-                    />
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </motion.section>
+      </motion.section>
+    </div>
   );
 };
 

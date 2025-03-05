@@ -18,19 +18,19 @@ export const home: Home[] = [
         id: 1,
         name: "Châu Đức Vũ",
         position: "Founder LEVEL UP",
-        mainImage: "./images/duc_vu.png",
+        mainImage: "/images/duc_vu.png",
       },
       {
         id: 2,
         name: "Phan Nhật Trung",
         position: "Cố vấn chuyên môn LEVEL UP",
-        mainImage: "./images/nhat_trung.png",
+        mainImage: "/images/nhat_trung.png",
       },
       {
         id: 3,
         name: "Thanh Phan",
         position: "Co-Founder LEVEL UP",
-        mainImage: "./images/thanh_phan.png",
+        mainImage: "/images/thanh_phan.png",
       },
     ],
     reviews: [
@@ -76,6 +76,54 @@ export const home: Home[] = [
       },
       {
         id: 6,
+        student_name: "Luis Pham",
+        mainImage: "/images/review.png",
+        suggest: "LEVEL UP - Art & Design Course",
+        quote:
+          "Mình là học viên của khoá học Advanced Typograph. Khoá học Advanced Typography đã giúp mình hiểu thêm được tầm quan trọng của Typography trong thiết kế và mang lại rất nhiều kiến thức thú vị. Giảng viên rất có tâm, thầy luôn tìm cách giải thích dễ hiểu và gần gũi nhất. ",
+      },
+      {
+        id: 7,
+        student_name: "Luis Pham",
+        mainImage: "/images/review.png",
+        suggest: "LEVEL UP - Art & Design Course",
+        quote:
+          "Mình là học viên của khoá học Advanced Typograph. Khoá học Advanced Typography đã giúp mình hiểu thêm được tầm quan trọng của Typography trong thiết kế và mang lại rất nhiều kiến thức thú vị. Giảng viên rất có tâm, thầy luôn tìm cách giải thích dễ hiểu và gần gũi nhất. ",
+      },
+      {
+        id: 8,
+        student_name: "Luis Pham",
+        mainImage: "/images/review.png",
+        suggest: "LEVEL UP - Art & Design Course",
+        quote:
+          "Mình là học viên của khoá học Advanced Typograph. Khoá học Advanced Typography đã giúp mình hiểu thêm được tầm quan trọng của Typography trong thiết kế và mang lại rất nhiều kiến thức thú vị. Giảng viên rất có tâm, thầy luôn tìm cách giải thích dễ hiểu và gần gũi nhất. ",
+      },
+      {
+        id: 9,
+        student_name: "Luis Pham",
+        mainImage: "/images/review.png",
+        suggest: "LEVEL UP - Art & Design Course",
+        quote:
+          "Mình là học viên của khoá học Advanced Typograph. Khoá học Advanced Typography đã giúp mình hiểu thêm được tầm quan trọng của Typography trong thiết kế và mang lại rất nhiều kiến thức thú vị. Giảng viên rất có tâm, thầy luôn tìm cách giải thích dễ hiểu và gần gũi nhất. ",
+      },
+      {
+        id: 10,
+        student_name: "Luis Pham",
+        mainImage: "/images/review.png",
+        suggest: "LEVEL UP - Art & Design Course",
+        quote:
+          "Mình là học viên của khoá học Advanced Typograph. Mình là học viên của khoá học Advanced Typograph. Khoá học Advanced Typography đã giúp mình hiểu thêm được tầm quan trọng của Typography trong thiết kế và mang lại rất nhiều kiến thức thú vị. Giảng viên rất có tâm, thầy luôn tìm cách giải thích dễ hiểu và gần gũi nhất. ",
+      },
+      {
+        id: 11,
+        student_name: "Luis Pham",
+        mainImage: "/images/review.png",
+        suggest: "LEVEL UP - Art & Design Course",
+        quote:
+          "Mình là học viên của khoá học Advanced Typograph. Mình là học viên của khoá học Advanced Typograph. Mình là học viên của khoá học Advanced Typograph. Mình là học viên của khoá học Advanced Typograph.Khoá học Advanced Typography đã giúp mình hiểu thêm được tầm quan trọng của Typography trong thiết kế và mang lại rất nhiều kiến thức thú vị. Giảng viên rất có tâm, thầy luôn tìm cách giải thích dễ hiểu và gần gũi nhất. ",
+      },
+      {
+        id: 12,
         student_name: "Luis Pham",
         mainImage: "/images/review.png",
         suggest: "LEVEL UP - Art & Design Course",
@@ -155,27 +203,27 @@ export const footerData: Footer = {
 
   social_media: [
     {
-      img: "./icons/facebook.svg",
+      img: "/icons/facebook.svg",
       href: "/",
       label: "facebook",
     },
     {
-      img: "./icons/behance.svg",
+      img: "/icons/behance.svg",
       href: "/",
       label: "behance",
     },
     {
-      img: "./icons/instagram.svg",
+      img: "/icons/instagram.svg",
       href: "/",
       label: "instagram",
     },
     {
-      img: "./icons/youtube.svg",
+      img: "/icons/youtube.svg",
       href: "/",
       label: "youtube",
     },
     {
-      img: "./icons/tiktok.svg",
+      img: "/icons/tiktok.svg",
       href: "/",
       label: "tiktok",
     },

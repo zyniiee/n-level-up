@@ -1,69 +1,79 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef } from "react";
 
 const CustomCursor: React.FC = () => {
-  const [cursorPosition, setCursorPosition] = useState<{
-    x: number;
-    y: number;
-  }>({ x: -20, y: -20 });
-
-  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const mousePosition = useRef({ x: -100, y: -100 });
+  const currentPosition = useRef({ x: -100, y: -100 });
 
   useEffect(() => {
     const checkMobile = () => {
-      const isMobileDevice =
+      return (
         /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
           navigator.userAgent
-        ) || window.innerWidth <= 768;
-
-      setIsMobile(isMobileDevice);
+        ) || window.innerWidth <= 768
+      );
     };
 
-    checkMobile();
+    const isMobile = checkMobile();
 
+    if (isMobile || !cursorRef.current) {
+      return;
+    }
+
+    const updateMousePosition = (e: MouseEvent) => {
+      mousePosition.current = { x: e.clientX, y: e.clientY };
+    };
+
+    const animateCursor = () => {
+      // Simple lerp (linear interpolation) for smooth following
+      const lerp = (start: number, end: number, factor: number) => {
+        return start + (end - start) * factor;
+      };
+
+      // Adjust factor between 0 and 1 (higher = less smoothing)
+      const smoothFactor = 0.5;
+
+      currentPosition.current.x = lerp(
+        currentPosition.current.x,
+        mousePosition.current.x,
+        smoothFactor
+      );
+
+      currentPosition.current.y = lerp(
+        currentPosition.current.y,
+        mousePosition.current.y,
+        smoothFactor
+      );
+
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate(${
+          currentPosition.current.x - 7.5
+        }px, ${currentPosition.current.y - 7.5}px)`;
+      }
+
+      requestAnimationFrame(animateCursor);
+    };
+
+    window.addEventListener("mousemove", updateMousePosition);
     window.addEventListener("resize", checkMobile);
 
-    if (!isMobile) {
-      const initialMousePosition = {
-        x: window.innerWidth / 2,
-        y: window.innerHeight / 2,
-      };
-      setCursorPosition(initialMousePosition);
+    // Start animation loop
+    const animationFrame = requestAnimationFrame(animateCursor);
 
-      const updateCursor = (e: MouseEvent) => {
-        setCursorPosition({ x: e.clientX, y: e.clientY });
-      };
-
-      window.addEventListener("mousemove", updateCursor);
-      return () => {
-        window.removeEventListener("mousemove", updateCursor);
-        window.removeEventListener("resize", checkMobile);
-      };
-    } else {
-      return () => window.removeEventListener("resize", checkMobile);
-    }
-  }, [isMobile]);
-
-  if (isMobile) {
-    return null;
-  }
+    return () => {
+      window.removeEventListener("mousemove", updateMousePosition);
+      window.removeEventListener("resize", checkMobile);
+      cancelAnimationFrame(animationFrame);
+    };
+  }, []);
 
   return (
-    <motion.div
+    <div
+      ref={cursorRef}
       className="fixed top-0 left-0 w-[15px] h-[15px] bg-white rounded-full pointer-events-none shadow-md z-40"
-      animate={{
-        x: cursorPosition.x - 7.5,
-        y: cursorPosition.y - 7.5,
-      }}
-      transition={{
-        type: "spring",
-        damping: 40,
-        stiffness: 500,
-        mass: 0.3,
-        duration: 0.01,
-      }}
+      style={{ transform: "translate(-100px, -100px)" }}
     />
   );
 };

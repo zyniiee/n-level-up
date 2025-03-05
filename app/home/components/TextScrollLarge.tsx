@@ -4,8 +4,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const TextScrollLarge = () => {
   // Track scroll progress
   const { scrollYProgress } = useScroll();
-  const leftTextX = useTransform(scrollYProgress, [0, 1], ["-05vw", "15vw"]);
-  const rightTextX = useTransform(scrollYProgress, [0, 1], ["1vw", "-5vw"]);
+  const leftTextX = useTransform(scrollYProgress, [0, 1], ["-20vw", "20vw"]);
+  const rightTextX = useTransform(scrollYProgress, [0, 1], ["15vw", "-15vw"]);
 
   return (
     <section className="w-full pt-32 flex flex-col items-center space-y-4 overflow-hidden">

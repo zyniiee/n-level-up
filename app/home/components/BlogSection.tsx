@@ -4,6 +4,7 @@ import { motion, useInView, useAnimation } from "framer-motion";
 import { NotionBlogPost } from "@/types";
 import Button from "@/components/ui/Button/button";
 import Link from "next/link";
+import PostCard from "@/components/Body/PostCard";
 
 const BlogSection = () => {
   const [featuredPosts, setFeaturedPosts] = useState<NotionBlogPost[]>([]);
@@ -14,7 +15,7 @@ const BlogSection = () => {
 
   const title = "Knowledge We Give, Value You Get";
   const cta = "Xem chi tiết";
-  const href = "/blog";
+  const href = "/blog-page";
 
   useEffect(() => {
     fetch("/api/blog")
@@ -88,58 +89,20 @@ const BlogSection = () => {
             className="blog_posts grid xl:grid-cols-4 grid-cols-2 gap-x-5 gap-y-8"
             variants={sectionVariants}
           >
-            {featuredPosts.slice(0, 8).map((post) => {
-              const mainImage = post.properties["main-image"]?.url || "";
-              const slug =
-                post.properties.Slug?.rich_text?.[0]?.plain_text || "";
-              const postUrl = `blog-page/${slug}`;
-
-              return (
-                <motion.div
-                  key={post.id}
-                  variants={itemVariants}
-                  className="blog_post relative cursor-pointer"
-                  whileHover={{
-                    scale: 1.03,
-                    transition: { duration: 0.3 },
-                  }}
-                  onMouseEnter={() => setHoveredPostId(post.id)}
-                  onMouseLeave={() => setHoveredPostId(null)}
-                >
-                  <Link
-                    href={postUrl}
-                    className="block w-full h-full absolute top-0 left-0 z-10"
-                  >
-                    <span className="sr-only">
-                      {post.properties.Name?.title?.[0]?.plain_text ||
-                        "Xem chi tiết"}
-                    </span>
-                  </Link>
-                  <img
-                    src={mainImage}
-                    alt={
-                      post.properties.Name?.title?.[0]?.plain_text ||
-                      "Blog Post"
-                    }
-                    className="blog_post_image"
-                  />
-                  <div className="blog_post_detail">
-                    <h5 className="blog_post_heading pb-4">
-                      {post.properties.Name?.title?.[0]?.plain_text ||
-                        "Untitled"}
-                    </h5>
-                    <div className="relative z-20 pointer-events-auto">
-                      <Button text={cta} href={postUrl} />
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
+            {featuredPosts.slice(0, 8).map((post) => (
+              <PostCard
+                key={post.id}
+                post={post}
+                baseUrl={href}
+                itemVariants={itemVariants}
+                ctaText={cta}
+              />
+            ))}
           </motion.div>
         </div>
       ) : (
         <motion.div variants={itemVariants} className="text-center py-12">
-          <p>Loading featured posts...</p>
+          <p></p>
         </motion.div>
       )}
     </motion.section>

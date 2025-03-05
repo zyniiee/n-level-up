@@ -1,14 +1,14 @@
 import React from "react";
 import { Footer } from "@/types";
-import { useCourses } from "@/app/context/CourseContext";
 import SecondaryButton from "@/components/ui/SecondaryButton/SecondaryButton";
+import { useCourses } from "@/app/hooks/useCourse";
 
 const FooterLinks = ({ footer }: { footer: Footer }) => {
-  const { courses } = useCourses();
+  const { courses, isLoading } = useCourses();
   const href = "/courses";
 
   return (
-    <div className="flex lg:flex-row flex-col justify-center gap-8 lg:gap-16 pt-28 pb-10">
+    <div className="flex lg:flex-row flex-col justify-center gap-8 lg:gap-16  pb-10">
       {/* Courses Section */}
       <div className="footer-section">
         <h4 className="uppercase font-bold pb-4">Courses</h4>

@@ -11,7 +11,9 @@ const HeaderImage: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [showSatellites, setShowSatellites] = useState<boolean>(false);
   const [startImageToggle, setStartImageToggle] = useState<boolean>(false);
-  const animationRef = useRef<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
+  const animationRef = useRef<NodeJS.Timeout | null>(null);
+  const [isFadingOut, setIsFadingOut] = useState(false);
   const lastTimeRef = useRef<number>(0);
 
   const images: Image[] = [
@@ -23,16 +25,33 @@ const HeaderImage: React.FC = () => {
     { id: "_06", src: "/images/project-2.jpg" },
   ];
 
+  const startAnimation = () => {
+    setIsFadingOut(true);
+    setTimeout(() => {
+      setIsStarted(false);
+      setShowSatellites(false);
+      setStartImageToggle(false);
+      setActiveIndex(0);
+      setIsFadingOut(false);
+
+      setTimeout(() => {
+        setIsStarted(true);
+        setTimeout(() => setShowSatellites(true), 2300);
+        setTimeout(() => setStartImageToggle(true), 8000);
+      }, 100);
+    }, 2000);
+  };
+
   useEffect(() => {
-    setIsStarted(true);
+    startAnimation();
 
-    setTimeout(() => setShowSatellites(true), 2500);
-
-    setTimeout(() => setStartImageToggle(true), 9930);
+    animationRef.current = setInterval(() => {
+      startAnimation();
+    }, 15000);
 
     return () => {
       if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
+        clearInterval(animationRef.current);
       }
     };
   }, []);
@@ -153,8 +172,11 @@ const HeaderImage: React.FC = () => {
           60% {
             transform: rotate(-180deg);
           }
-          71% {
+          65% {
             transform: rotate3d(1, 1, 0, -90deg) translateY(110%) scale(1);
+          }
+          75% {
+            transform: rotate3d(0, 1, 0, 180deg) translateY(120%) scale(1.25);
           }
           100% {
             transform: rotate3d(0, 1, 0, 180deg) translateY(120%) scale(1.25);

@@ -1,42 +1,90 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useCourses } from "@/app/context/CourseContext";
 import SecondaryButton from "@/components/ui/SecondaryButton/SecondaryButton";
 import { navMenuFooter } from "@/constants";
+import { useCourses } from "@/app/hooks/useCourse";
 
-const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
-  const { courses, isLoading } = useCourses();
+interface NavMenuProps {
+  isOpen: boolean;
+}
+
+const NavMenu: React.FC<NavMenuProps> = ({ isOpen }) => {
   const href = "/courses";
-  const [hoveredImage, setHoveredImage] = useState("");
-  const [isHovering, setIsHovering] = useState(false);
-  const sectionRef = useRef(null);
+  const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const { courses, isLoading } = useCourses();
+  useEffect(() => {
+    if (!isLoading && courses.length > 0) {
+      setHoveredIndex(0);
+      setIsHovering(true);
+    }
+  }, [isLoading, courses]);
 
-  const leftVariants = {
-    hidden: { opacity: 0, x: -100 },
-    visible: { opacity: 1, x: 0 },
+  const leftArrowVariants = {
+    initial: { x: "0%" },
+    hover: {
+      x: "150%",
+      transition: {
+        repeat: Infinity,
+        duration: 1,
+        ease: "linear",
+      },
+    },
   };
 
-  const rightVariants = {
-    hidden: { opacity: 0, x: 100 },
-    visible: { opacity: 1, x: 0 },
+  const leftArrowColoredVariants = {
+    initial: { x: "-150%" },
+    hover: {
+      x: "0%",
+      transition: {
+        repeat: Infinity,
+        duration: 1,
+        ease: "linear",
+      },
+    },
   };
 
+  const rightArrowVariants = {
+    initial: { x: "0%" },
+    hover: {
+      x: "-150%",
+      transition: {
+        repeat: Infinity,
+        duration: 1,
+        ease: "linear",
+      },
+    },
+  };
+
+  const rightArrowColoredVariants = {
+    initial: { x: "150%" },
+    hover: {
+      x: "0%",
+      transition: {
+        repeat: Infinity,
+        duration: 1,
+        ease: "linear",
+      },
+    },
+  };
   const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 0 },
     visible: { opacity: 1, y: 0 },
   };
 
-  useEffect(() => {
+  const resetToFirstCourse = () => {
     if (courses.length > 0) {
-      setHoveredImage(courses[0].properties["main-image"]?.url || "");
+      setIsHovering(false);
+      setHoveredIndex(0);
     }
-  }, [courses]);
+  };
 
   if (isLoading) {
-    return <div> </div>;
+    return <div></div>;
   }
+
   return (
     <div
       className={`w-screen h-screen fixed inset-0 z-20 transition-opacity duration-100 ${
@@ -44,31 +92,36 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
       }`}
       style={{ maxWidth: "100vw", margin: 0 }}
     >
+      {/* Background */}
       <div
         className={`backgound_nav w-full h-full inset-0 absolute origin-top-right bg-[#141414] transition-transform duration-100 
         ${isOpen ? "rotate-0" : "-rotate-90"}`}
       ></div>
 
+      {/* Content */}
       <div className="nav_menu_content relative z-10 w-full h-full flex flex-col gap-4 justify-center items-center">
-        <div className="flex flex-col justify-center items-center w-full  mx-auto">
+        <div className="flex flex-col justify-center items-center w-full mx-auto">
           <p className="font-semibold py-[1rem] md:py-[2rem] w-full border-b-[0.5px] border-[#aeaeae] text-center text-white">
             Khoá học LEVEL UP tư duy
           </p>
-
           <div className="w-full flex flex-col items-center">
             {courses.map((course, index) => {
-              const mainImage = course.properties["main-image"]?.url || "";
               const slug =
                 course.properties.Slug?.rich_text?.[0]?.plain_text || "";
+              const isCourseHovered = hoveredIndex === index;
+
+              const isActiveForAnimation =
+                isCourseHovered || (index === 0 && !isHovering);
 
               return (
                 <motion.div
                   key={course.id}
                   className="flex items-center justify-center cursor-pointer w-full"
                   onMouseEnter={() => {
-                    setHoveredImage(mainImage);
                     setIsHovering(true);
+                    setHoveredIndex(index);
                   }}
+                  onMouseLeave={resetToFirstCourse}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: false, amount: 0.3 }}
@@ -86,11 +139,7 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                       className="course_button  flex items-center justify-center py-6 w-full gap-4 pointer-events-auto relative"
                       initial="initial"
                       whileHover="hover"
-                      animate="initial"
-                      variants={{
-                        initial: { x: "0px" },
-                        hover: { x: "0px" },
-                      }}
+                      animate={isActiveForAnimation ? "hover" : "initial"}
                       transition={{ duration: 0.5, ease: "circOut" }}
                     >
                       <div className="course_arrow_block relative overflow-hidden">
@@ -99,11 +148,18 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 16 8"
                           fill="#aeaeae"
-                          variants={{
-                            initial: { x: "0%", opacity: 0 },
-                            hover: { x: "100%", opacity: 1 },
-                          }}
-                          transition={{ duration: 0.5, ease: "circOut" }}
+                          variants={leftArrowVariants}
+                          animate={
+                            isActiveForAnimation
+                              ? { opacity: 1 }
+                              : {
+                                  opacity:
+                                    hoveredIndex === null && index === 0
+                                      ? 1
+                                      : 0,
+                                }
+                          }
+                          transition={{ duration: 0.3 }}
                         >
                           <path
                             xmlns="http://www.w3.org/2000/svg"
@@ -116,11 +172,18 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 16 8"
                           fill="currentColor"
-                          variants={{
-                            initial: { x: "-100%", opacity: 0 },
-                            hover: { x: "0%", opacity: 1 },
-                          }}
-                          transition={{ duration: 0.5, ease: "circOut" }}
+                          animate={
+                            isActiveForAnimation
+                              ? { opacity: 1 }
+                              : {
+                                  opacity:
+                                    hoveredIndex === null && index === 0
+                                      ? 1
+                                      : 0,
+                                }
+                          }
+                          transition={{ duration: 0.3 }}
+                          variants={leftArrowColoredVariants}
                         >
                           <path
                             xmlns="http://www.w3.org/2000/svg"
@@ -137,6 +200,7 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                             initial: { y: "0%" },
                             hover: { y: "-100%" },
                           }}
+                          animate={isActiveForAnimation ? "hover" : "initial"}
                           transition={{ duration: 0.5, ease: "circOut" }}
                         >
                           {course.properties.Name?.title?.[0]?.plain_text ||
@@ -149,6 +213,7 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                             initial: { y: "100%" },
                             hover: { y: "0%" },
                           }}
+                          animate={isActiveForAnimation ? "hover" : "initial"}
                           transition={{ duration: 0.5, ease: "circOut" }}
                         >
                           {course.properties.Name?.title?.[0]?.plain_text ||
@@ -162,11 +227,18 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 16 8"
                           fill="#aeaeae"
-                          variants={{
-                            initial: { x: "0%", opacity: 0 },
-                            hover: { x: "-100%", opacity: 1 },
-                          }}
-                          transition={{ duration: 0.5, ease: "circOut" }}
+                          variants={rightArrowVariants}
+                          animate={
+                            isActiveForAnimation
+                              ? { opacity: 1 }
+                              : {
+                                  opacity:
+                                    hoveredIndex === null && index === 0
+                                      ? 1
+                                      : 0,
+                                }
+                          }
+                          transition={{ duration: 0.3 }}
                         >
                           <path
                             xmlns="http://www.w3.org/2000/svg"
@@ -180,11 +252,18 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 16 8"
                           fill="currentColor"
-                          variants={{
-                            initial: { x: "100%", opacity: 0 },
-                            hover: { x: "0%", opacity: 1 },
-                          }}
-                          transition={{ duration: 0.5, ease: "circOut" }}
+                          variants={rightArrowColoredVariants}
+                          animate={
+                            isActiveForAnimation
+                              ? { opacity: 1 }
+                              : {
+                                  opacity:
+                                    hoveredIndex === null && index === 0
+                                      ? 1
+                                      : 0,
+                                }
+                          }
+                          transition={{ duration: 0.3 }}
                         >
                           <path
                             xmlns="http://www.w3.org/2000/svg"
@@ -201,15 +280,13 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
           </div>
         </div>
       </div>
+
+      {/* Footer */}
       <div className="section_container_sml m-auto w-full absolute z-10 inset-x-0 bottom-0">
         <ul className="w-full flex justify-between">
           {navMenuFooter.main.map((item) => (
             <li key={item.title}>
-              <SecondaryButton
-                text={item.title}
-                href={item.href}
-                variant="text"
-              />
+              <SecondaryButton text={item.title} href={item.href} />
             </li>
           ))}
         </ul>

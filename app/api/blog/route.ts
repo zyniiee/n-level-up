@@ -1,20 +1,26 @@
 import { NextResponse } from "next/server";
-import { getDatabaseItems } from "@/lib/notion";
 import { getCachedBlogData } from "@/lib/cached-notion";
 
 export async function GET() {
   try {
-    const data = await getCachedBlogData();
+    const blogData = await getCachedBlogData();
 
-    if ("error" in data) {
-      return NextResponse.json({ error: data.error });
+    if ("error" in blogData) {
+      return NextResponse.json({ error: blogData.error }, { status: 500 });
     }
 
-    return NextResponse.json(data);
+    const featured = blogData.allPosts.filter(
+      (post) => post.properties.Featured?.checkbox === true
+    );
+
+    return NextResponse.json({
+      allPosts: blogData.allPosts,
+      featured: featured,
+    });
   } catch (error) {
-    console.error("Blog API error:", error);
+    console.error("Error fetching blog data:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: "Failed to fetch blog data" },
       { status: 500 }
     );
   }

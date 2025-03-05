@@ -15,11 +15,10 @@ export type BlogDataResult =
       filtered: { [key: string]: NotionBlogPost[] };
     };
 
-export type CoursesDataResult =
-  | { error: string }
-  | {
-      allCourses: NotionCourse[];
-    };
+export interface CoursesDataResult {
+  allCourses?: NotionCourse[];
+  error?: string;
+}
 
 export type GalleryDataResult =
   | { error: string }

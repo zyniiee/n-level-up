@@ -1,15 +1,72 @@
 "use client";
-import { useCourses } from "@/app/context/CourseContext";
 import { motion } from "framer-motion";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import { useCourses } from "@/app/hooks/useCourse";
 import Link from "next/link";
 
 const CoursesList = () => {
   const { courses, isLoading } = useCourses();
-  const [hoveredImage, setHoveredImage] = useState("");
-  const [isHovering, setIsHovering] = useState(false);
-  const sectionRef = useRef(null);
+  const [hoveredImage, setHoveredImage] = useState<string>("");
+  const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const href = "/courses";
+
+  useEffect(() => {
+    if (!isLoading && courses.length > 0) {
+      const defaultImage = courses[0].properties["main-image"]?.url || "";
+      setHoveredImage(defaultImage);
+      setHoveredIndex(0);
+      setIsHovering(true);
+    }
+  }, [isLoading, courses]);
+
+  const leftArrowVariants = {
+    initial: { x: "0%" },
+    hover: {
+      x: "150%",
+      transition: {
+        repeat: Infinity,
+        duration: 1,
+        ease: "linear",
+      },
+    },
+  };
+
+  const leftArrowColoredVariants = {
+    initial: { x: "-150%" },
+    hover: {
+      x: "0%",
+      transition: {
+        repeat: Infinity,
+        duration: 1,
+        ease: "linear",
+      },
+    },
+  };
+
+  const rightArrowVariants = {
+    initial: { x: "0%" },
+    hover: {
+      x: "-150%",
+      transition: {
+        repeat: Infinity,
+        duration: 1,
+        ease: "linear",
+      },
+    },
+  };
+
+  const rightArrowColoredVariants = {
+    initial: { x: "150%" },
+    hover: {
+      x: "0%",
+      transition: {
+        repeat: Infinity,
+        duration: 1,
+        ease: "linear",
+      },
+    },
+  };
 
   const leftVariants = {
     hidden: { opacity: 0, x: -100 },
@@ -26,18 +83,24 @@ const CoursesList = () => {
     visible: { opacity: 1, y: 0 },
   };
 
-  useEffect(() => {
+  const resetToFirstCourse = () => {
     if (courses.length > 0) {
-      setHoveredImage(courses[0].properties["main-image"]?.url || "");
+      const defaultImage = courses[0].properties["main-image"]?.url || "";
+      setHoveredImage(defaultImage);
+      setIsHovering(false);
+      setHoveredIndex(0);
     }
-  }, [courses]);
+  };
 
   if (isLoading) {
-    return <div> </div>;
+    return <div></div>;
   }
 
   return (
-    <section className="section_container w-full">
+    <section
+      className="section_container w-full"
+      onMouseLeave={resetToFirstCourse}
+    >
       <div className="xl:grid grid-cols-2 flex flex-col">
         {/* Image section */}
         <motion.div
@@ -48,11 +111,11 @@ const CoursesList = () => {
           variants={leftVariants}
           transition={{ duration: 0.6 }}
         >
-          {hoveredImage && isHovering && (
+          {hoveredImage && (
             <img
               src={hoveredImage}
               alt="Selected course"
-              className="object-cover transition-all duration-300 ease-in-out"
+              className="object-cover transition-all duration-300 ease-in-out rounded-[20px]"
             />
           )}
         </motion.div>
@@ -60,7 +123,6 @@ const CoursesList = () => {
         {/* Course list section */}
         <motion.div
           className="pt-16 xl:pt-0"
-          onMouseLeave={() => setIsHovering(false)}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.3 }}
@@ -82,14 +144,19 @@ const CoursesList = () => {
             const mainImage = course.properties["main-image"]?.url || "";
             const slug =
               course.properties.Slug?.rich_text?.[0]?.plain_text || "";
+            const isCourseHovered = hoveredIndex === index;
+
+            const isActiveForAnimation =
+              isCourseHovered || (index === 0 && !isHovering);
 
             return (
               <motion.div
                 key={course.id}
-                className="flex items-center cursor-pointer w-full "
+                className="flex items-center cursor-pointer w-full"
                 onMouseEnter={() => {
                   setHoveredImage(mainImage);
                   setIsHovering(true);
+                  setHoveredIndex(index);
                 }}
                 initial="hidden"
                 whileInView="visible"
@@ -108,7 +175,7 @@ const CoursesList = () => {
                     className="course_button flex items-center py-6 w-full gap-4 pointer-events-auto relative"
                     initial="initial"
                     whileHover="hover"
-                    animate="initial"
+                    animate={isActiveForAnimation ? "hover" : "initial"}
                     variants={{
                       initial: { x: "-30px" },
                       hover: { x: "0px" },
@@ -121,28 +188,34 @@ const CoursesList = () => {
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 16 8"
                         fill="#aeaeae"
-                        variants={{
-                          initial: { x: "0%", opacity: 0 },
-                          hover: { x: "100%", opacity: 1 },
-                        }}
-                        transition={{ duration: 0.5, ease: "circOut" }}
+                        variants={leftArrowVariants}
+                        animate={
+                          isActiveForAnimation
+                            ? { opacity: 1 }
+                            : {
+                                opacity:
+                                  hoveredIndex === null && index === 0 ? 1 : 0,
+                              }
+                        }
+                        transition={{ duration: 0.3 }}
                       >
-                        <path
-                          xmlns="http://www.w3.org/2000/svg"
-                          d="M15.3536 4.35355C15.5488 4.15829 15.5488 3.84171 15.3536 3.64645L12.1716 0.464466C11.9763 0.269204 11.6597 0.269204 11.4645 0.464466C11.2692 0.659728 11.2692 0.976311 11.4645 1.17157L14.2929 4L11.4645 6.82843C11.2692 7.02369 11.2692 7.34027 11.4645 7.53553C11.6597 7.7308 11.9763 7.7308 12.1716 7.53553L15.3536 4.35355ZM0 4.5L15 4.5V3.5L0 3.5L0 4.5Z"
-                          fill="#AEAEAE"
-                        />{" "}
+                        <path d="M15.3536 4.35355C15.5488 4.15829 15.5488 3.84171 15.3536 3.64645L12.1716 0.464466C11.9763 0.269204 11.6597 0.269204 11.4645 0.464466C11.2692 0.659728 11.2692 0.976311 11.4645 1.17157L14.2929 4L11.4645 6.82843C11.2692 7.02369 11.2692 7.34027 11.4645 7.53553C11.6597 7.7308 11.9763 7.7308 12.1716 7.53553L15.3536 4.35355ZM0 4.5L15 4.5V3.5L0 3.5L0 4.5Z" />
                       </motion.svg>
                       <motion.svg
                         className="absolute"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 16 8"
                         fill="currentColor"
-                        variants={{
-                          initial: { x: "-100%", opacity: 0 },
-                          hover: { x: "0%", opacity: 1 },
-                        }}
-                        transition={{ duration: 0.5, ease: "circOut" }}
+                        animate={
+                          isActiveForAnimation
+                            ? { opacity: 1 }
+                            : {
+                                opacity:
+                                  hoveredIndex === null && index === 0 ? 1 : 0,
+                              }
+                        }
+                        transition={{ duration: 0.3 }}
+                        variants={leftArrowColoredVariants}
                       >
                         <path
                           xmlns="http://www.w3.org/2000/svg"
@@ -152,13 +225,14 @@ const CoursesList = () => {
                       </motion.svg>
                     </div>
 
-                    <div className="course_button_text_container  text-course-heading leading-relaxed relative">
+                    <div className="course_button_text_container text-course-heading leading-relaxed relative">
                       <motion.div
-                        className="left-0 w-full whitespace-nowrap text-ellipsis "
+                        className="left-0 w-full whitespace-nowrap text-ellipsis"
                         variants={{
                           initial: { y: "0%" },
                           hover: { y: "-100%" },
                         }}
+                        animate={isActiveForAnimation ? "hover" : "initial"}
                         transition={{ duration: 0.5, ease: "circOut" }}
                       >
                         {course.properties.Name?.title?.[0]?.plain_text ||
@@ -171,6 +245,7 @@ const CoursesList = () => {
                           initial: { y: "100%" },
                           hover: { y: "0%" },
                         }}
+                        animate={isActiveForAnimation ? "hover" : "initial"}
                         transition={{ duration: 0.5, ease: "circOut" }}
                       >
                         {course.properties.Name?.title?.[0]?.plain_text ||
@@ -178,17 +253,22 @@ const CoursesList = () => {
                       </motion.div>
                     </div>
 
-                    <div className="course_arrow_block relative overflow-hidden ">
+                    <div className="course_arrow_block relative overflow-hidden">
                       <motion.svg
                         className="absolute"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 16 8"
                         fill="#aeaeae"
-                        variants={{
-                          initial: { x: "0%", opacity: 0 },
-                          hover: { x: "-100%", opacity: 1 },
-                        }}
-                        transition={{ duration: 0.5, ease: "circOut" }}
+                        variants={rightArrowVariants}
+                        animate={
+                          isActiveForAnimation
+                            ? { opacity: 1 }
+                            : {
+                                opacity:
+                                  hoveredIndex === null && index === 0 ? 1 : 0,
+                              }
+                        }
+                        transition={{ duration: 0.3 }}
                       >
                         <path
                           xmlns="http://www.w3.org/2000/svg"
@@ -202,11 +282,16 @@ const CoursesList = () => {
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 16 8"
                         fill="currentColor"
-                        variants={{
-                          initial: { x: "100%", opacity: 0 },
-                          hover: { x: "0%", opacity: 1 },
-                        }}
-                        transition={{ duration: 0.5, ease: "circOut" }}
+                        variants={rightArrowColoredVariants}
+                        animate={
+                          isActiveForAnimation
+                            ? { opacity: 1 }
+                            : {
+                                opacity:
+                                  hoveredIndex === null && index === 0 ? 1 : 0,
+                              }
+                        }
+                        transition={{ duration: 0.3 }}
                       >
                         <path
                           xmlns="http://www.w3.org/2000/svg"

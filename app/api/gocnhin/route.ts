@@ -1,21 +1,27 @@
 import { NextResponse } from "next/server";
-import { getDatabaseItems } from "@/lib/notion";
 import { getCachedGocnhinData } from "@/lib/cached-notion";
 
 export async function GET() {
   try {
-    const data = await getCachedGocnhinData();
+    const gocnhinData = await getCachedGocnhinData();
 
-    if ("error" in data) {
-      return NextResponse.json({ error: data.error });
+    if ("error" in gocnhinData) {
+      return NextResponse.json({ error: gocnhinData.error }, { status: 500 });
     }
-    return NextResponse.json(data);
+
+    // Separate featured and all posts
+    const featured = gocnhinData.allPosts.filter(
+      (post) => post.properties.Featured?.checkbox === true
+    );
+
+    return NextResponse.json({
+      allPosts: gocnhinData.allPosts,
+      featured: featured,
+    });
   } catch (error) {
-    console.error("Goc Nhin API error:", error);
+    console.error("Error fetching blog data:", error);
     return NextResponse.json(
-      {
-        error: "Internal Server Error",
-      },
+      { error: "Failed to fetch blog data" },
       { status: 500 }
     );
   }

@@ -4,10 +4,11 @@ import Button from "@/components/ui/Button/button";
 import { useGocNhin } from "@/app/hooks/useGocNhin";
 import { useEffect, useState } from "react";
 import PostCard from "@/components/Body/PostCard";
+import { useBlog } from "../hooks/useBlog";
 
-const GocNhinPage = () => {
-  const { allPosts, isLoading, error } = useGocNhin();
-  const href = "/blog";
+const BlogPage = () => {
+  const { allPosts, isLoading, error } = useBlog();
+  const href = "/blog-page";
   const cta = "Xem chi tiết";
 
   return (
@@ -42,4 +43,4 @@ const GocNhinPage = () => {
   );
 };
 
-export default GocNhinPage;
+export default BlogPage;
